@@ -42,7 +42,7 @@ authors = "Daedelus" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-Runes.
+Craft runes to serve as ammo for spells.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.runes]] #optional

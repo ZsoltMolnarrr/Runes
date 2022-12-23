@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "runes",
   "version": "${version}",
-  "name": "Runes Attribute",
-  "description": "Runes.",
+  "name": "Runes",
+  "description": "Craft runes to serve as ammo for spells.",
   "authors": [
     "Daedelus"
   ],
