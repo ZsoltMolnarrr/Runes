@@ -11,6 +11,7 @@ import net.runes.internals.RuneCrafting;
 import net.runes.internals.RuneCraftingBlock;
 import net.runes.internals.RuneCraftingRecipe;
 import net.runes.internals.RuneCraftingScreenHandler;
+import net.runes.item.RuneItems;
 
 public class RunesMod {
     public static final String ID = "runes";
@@ -24,5 +25,9 @@ public class RunesMod {
         Registry.register(Registry.ITEM, new Identifier(ID, RuneCraftingBlock.NAME), new BlockItem(RuneCraftingBlock.INSTANCE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         BlockRenderLayerMap.INSTANCE.putBlock(RuneCraftingBlock.INSTANCE, RenderLayer.getCutout());
         Registry.register(Registry.SCREEN_HANDLER, new Identifier(ID, RuneCraftingRecipe.NAME), RuneCraftingScreenHandler.HANDLER_TYPE);
+
+        for(var entry: RuneItems.all.entrySet()) {
+            Registry.register(Registry.ITEM, entry.getKey(), entry.getValue());
+        }
     }
 }

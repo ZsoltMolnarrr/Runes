@@ -1,3 +1,10 @@
 {
-  "attribute.name.runes.arcane" : "Arcane Runes"
+  "gui.runes.rune_crafting" : "Rune Crafting",
+  "block.runes.rune_crafting": "Rune Crafting Altar",
+  "item.runes.arcane_rune": "Arcane Rune",
+  "item.runes.fire_rune": "Fire Rune",
+  "item.runes.frost_rune": "Frost Rune",
+  "item.runes.healing_rune": "Healing Rune",
+  "item.runes.lightning_rune": "Lightning Rune",
+  "item.runes.soul_rune": "Soul Rune"
 }
