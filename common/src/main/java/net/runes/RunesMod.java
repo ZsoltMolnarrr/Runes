@@ -7,10 +7,10 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.runes.internals.RuneCrafting;
-import net.runes.internals.RuneCraftingBlock;
-import net.runes.internals.RuneCraftingRecipe;
-import net.runes.internals.RuneCraftingScreenHandler;
+import net.runes.crafting.RuneCrafting;
+import net.runes.crafting.RuneCraftingBlock;
+import net.runes.crafting.RuneCraftingRecipe;
+import net.runes.crafting.RuneCraftingScreenHandler;
 import net.runes.item.RuneItems;
 
 public class RunesMod {

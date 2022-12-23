@@ -1,4 +1,4 @@
-package net.runes.internals;
+package net.runes.crafting;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -7,4 +7,5 @@ import net.runes.RunesMod;
 public class RuneCrafting {
     public static Identifier ID = new Identifier(RunesMod.ID, "crafting");
     public static SoundEvent SOUND = new SoundEvent(ID);
+    public static int SOUND_DELAY = 20;
 }

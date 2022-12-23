@@ -1,7 +1,7 @@
 package net.runes.client;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.runes.internals.RuneCraftingScreenHandler;
+import net.runes.crafting.RuneCraftingScreenHandler;
 
 public class RunesClientMod {
     public static void initialize() {

@@ -9,8 +9,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.runes.RunesMod;
-import net.runes.internals.RuneCraftingBlock;
-import net.runes.internals.RuneCraftingScreenHandler;
+import net.runes.crafting.RuneCraftingBlock;
+import net.runes.crafting.RuneCraftingScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler> {

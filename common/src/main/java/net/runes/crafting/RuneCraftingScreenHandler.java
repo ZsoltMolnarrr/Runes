@@ -1,4 +1,4 @@
-package net.runes.internals;
+package net.runes.crafting;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,11 +52,12 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         this.decrementStack(1);
 
         var runeCrafter = (RuneCrafter)player;
-        if (runeCrafter.getLastCrafted() < 1) {
-            return;
+        System.out.println("XXX 1 - " + player.age);
+        if (runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
+            System.out.println("XXX 2 - " + player.age);
+            world.playSound(player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1, true);
+            runeCrafter.onPlayedRuneCraftingSound(player.age);
         }
-        runeCrafter.setLastCrafted(0);
-        world.playSound(player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1, true);
     }
 
     private void decrementStack(int slot) {

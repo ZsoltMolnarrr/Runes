@@ -1,4 +1,4 @@
-package net.runes.internals;
+package net.runes.crafting;
 
 import com.google.gson.JsonObject;
 import net.minecraft.block.Blocks;

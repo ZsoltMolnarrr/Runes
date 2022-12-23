@@ -1,4 +1,4 @@
-package net.runes.internals;
+package net.runes.crafting;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
