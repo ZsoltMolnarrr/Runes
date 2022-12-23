@@ -10,6 +10,8 @@
 
 # 🪨️ Features
 
-Adds rune stones and rune crafting altar to the game.
+Adds rune stones and rune crafting to the game.
 
-Rune crafting altar comes with its own recipe type, which is very similar in format to Smithing Table recipes. Examples can be seen [here](common/src/main/resources/data/runes/recipes).
+Runes can be created in hand, on crafting table, but the most efficient way is to use the Rune Craft Altar.
+
+Rune Craft Altar comes with its own recipe type, which is very similar in format to Smithing Table recipes. Examples can be seen [here](common/src/main/resources/data/runes/recipes).
