@@ -12,4 +12,4 @@
 
 Adds rune stones and rune crafting altar to the game.
 
-Rune crafting altar comes with its own recipe type, which is very similar in format to Smithing Table recipes. Examples can be seen [here](src/main/resources/data/recipes).
+Rune crafting altar comes with its own recipe type, which is very similar in format to Smithing Table recipes. Examples can be seen [here](common/src/main/resources/data/runes/recipes).
