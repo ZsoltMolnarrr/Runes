@@ -1,10 +1,10 @@
 {
   "gui.runes.rune_crafting" : "Rune Crafting",
   "block.runes.crafting_altar": "Rune Crafting Altar",
-  "item.runes.arcane_rune": "Arcane Rune",
-  "item.runes.fire_rune": "Fire Rune",
-  "item.runes.frost_rune": "Frost Rune",
-  "item.runes.healing_rune": "Healing Rune",
-  "item.runes.lightning_rune": "Lightning Rune",
-  "item.runes.soul_rune": "Soul Rune"
+  "item.runes.arcane_stone": "Arcane Rune",
+  "item.runes.fire_stone": "Fire Rune",
+  "item.runes.frost_stone": "Frost Rune",
+  "item.runes.healing_stone": "Healing Rune",
+  "item.runes.lightning_stone": "Lightning Rune",
+  "item.runes.soul_stone": "Soul Rune"
 }

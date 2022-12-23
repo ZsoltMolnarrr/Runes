@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "runes:item/fire_rune"
+    "layer0": "runes:item/arcane_stone"
   }
 }
