@@ -100,7 +100,7 @@ if(project.hasProperty('release_type')) {
     curseforge {
         apiKey = System.getenv("CURSEFORGE_API_KEY")
         project {
-            id = '771265'
+            id = '775518'
             changelog = changelog_last_section()
             changelogType = 'markdown'
             releaseType = release_type
