@@ -1,6 +1,5 @@
 ![Runes](.github/icon_and_title.png)
 
-
 <div align="center">
 
 <a href="">![Java 17](https://img.shields.io/badge/Java%2017-ee9258?logo=coffeescript&logoColor=ffffff&labelColor=606060&style=flat-square)</a>
@@ -11,12 +10,6 @@
 
 # 🪨️ Features
 
-Adds rune stones to the game.
+Adds rune stones and rune crafting altar to the game.
 
-## 📦 Content
-
-Asd.
-
-# 🔧 Configuration
-
-**Server side** configuration can be found in the `config` directory, after running the game with the mod installed.
+Rune crafting altar comes with its own recipe type, which is very similar in format to Smithing Table recipes. Examples can be seen [here](src/main/resources/data/recipes).
