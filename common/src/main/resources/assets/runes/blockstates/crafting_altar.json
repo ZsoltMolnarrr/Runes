@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "runes:block/crafting_altar"
+    },
+    "facing=south": {
+      "model": "runes:block/crafting_altar",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "runes:block/crafting_altar",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "runes:block/crafting_altar",
+      "y": 270
+    }
+  }
+}

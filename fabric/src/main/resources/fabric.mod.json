@@ -15,6 +15,9 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
+    "client": [
+      "net.runes.fabric.client.FabricClientMod"
+    ],
     "main": [
       "net.runes.fabric.FabricMod"
     ]
