@@ -9,11 +9,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.runes.RunesMod;
+import net.runes.internals.RuneCraftingBlock;
 import net.runes.internals.RuneCraftingScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(RunesMod.ID, "textures/gui/crafting_alter.png");
+    private static final Identifier TEXTURE = new Identifier(RunesMod.ID, "textures/gui/" + RuneCraftingBlock.NAME + ".png");
 
     public RuneCraftingScreen(RuneCraftingScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title, TEXTURE);

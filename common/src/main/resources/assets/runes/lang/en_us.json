@@ -1,6 +1,6 @@
 {
   "gui.runes.rune_crafting" : "Rune Crafting",
-  "block.runes.rune_crafting": "Rune Crafting Altar",
+  "block.runes.crafting_altar": "Rune Crafting Altar",
   "item.runes.arcane_rune": "Arcane Rune",
   "item.runes.fire_rune": "Fire Rune",
   "item.runes.frost_rune": "Frost Rune",
