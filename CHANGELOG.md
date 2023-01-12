@@ -1,3 +1,6 @@
+# 0.9.3
+- Add rune crafting advancement criteria
+
 # 0.9.2
 - Add more rune crafting recipes with vanilla materials
 - Fix server launch crash

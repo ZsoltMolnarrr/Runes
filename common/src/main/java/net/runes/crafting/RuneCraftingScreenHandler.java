@@ -9,6 +9,7 @@ import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -51,6 +52,9 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         this.decrementStack(0);
         this.decrementStack(1);
 
+        if(player instanceof ServerPlayerEntity serverPlayer) {
+            RuneCraftingCriteria.INSTANCE.trigger(serverPlayer);
+        }
         var runeCrafter = (RuneCrafter)player;
         if (runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
             world.playSound(player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1, true);

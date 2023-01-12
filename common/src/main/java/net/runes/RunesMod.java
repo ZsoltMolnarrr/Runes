@@ -1,14 +1,12 @@
 package net.runes;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.runes.crafting.RuneCrafting;
-import net.runes.crafting.RuneCraftingBlock;
-import net.runes.crafting.RuneCraftingRecipe;
-import net.runes.crafting.RuneCraftingScreenHandler;
+import net.runes.crafting.*;
 import net.runes.item.RuneItems;
 
 public class RunesMod {
@@ -26,5 +24,7 @@ public class RunesMod {
         for(var entry: RuneItems.all.entrySet()) {
             Registry.register(Registry.ITEM, entry.getKey(), entry.getValue());
         }
+
+        Criteria.register(RuneCraftingCriteria.INSTANCE);
     }
 }
