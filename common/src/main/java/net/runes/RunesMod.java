@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.runes.crafting.*;
-import net.runes.item.RuneItems;
+import net.runes.api.RuneItems;
 
 public class RunesMod {
     public static final String ID = "runes";
@@ -21,8 +21,8 @@ public class RunesMod {
         Registry.register(Registry.ITEM, new Identifier(ID, RuneCraftingBlock.NAME), new BlockItem(RuneCraftingBlock.INSTANCE, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.SCREEN_HANDLER, new Identifier(ID, RuneCraftingRecipe.NAME), RuneCraftingScreenHandler.HANDLER_TYPE);
 
-        for(var entry: RuneItems.all.entrySet()) {
-            Registry.register(Registry.ITEM, entry.getKey(), entry.getValue());
+        for(var entry: RuneItems.entries) {
+            Registry.register(Registry.ITEM, entry.id(), entry.item());
         }
 
         Criteria.register(RuneCraftingCriteria.INSTANCE);
