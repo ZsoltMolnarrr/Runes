@@ -1,5 +1,6 @@
 # 0.9.3
 - Add rune crafting advancement criteria
+- Expose items to API
 
 # 0.9.2
 - Add more rune crafting recipes with vanilla materials
