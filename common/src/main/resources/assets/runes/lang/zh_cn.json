@@ -1,0 +1,10 @@
+{
+  "gui.runes.rune_crafting" : "符文制作",
+  "block.runes.crafting_altar": "符文制作祭坛",
+  "item.runes.arcane_stone": "奥秘符文",
+  "item.runes.fire_stone": "火焰符文",
+  "item.runes.frost_stone": "寒冰符文",
+  "item.runes.healing_stone": "治愈符文",
+  "item.runes.lightning_stone": "雷电符文",
+  "item.runes.soul_stone": "灵魂符文"
+}
