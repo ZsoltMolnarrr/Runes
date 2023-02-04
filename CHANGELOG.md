@@ -1,3 +1,6 @@
+# 0.9.4
+- Add chinese translation thanks to Kzeroko
+
 # 0.9.3
 - Add rune crafting advancement criteria
 - Expose items to API
