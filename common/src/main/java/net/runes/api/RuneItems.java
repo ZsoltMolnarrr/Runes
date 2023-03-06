@@ -8,6 +8,7 @@ import net.runes.RunesMod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RuneItems {
     public enum RuneType {
@@ -20,7 +21,7 @@ public class RuneItems {
     static {
         var all = new ArrayList<Entry>();
         for(var type : RuneType.values()) {
-            var id = new Identifier(RunesMod.ID, type.toString().toLowerCase() + "_stone");
+            var id = new Identifier(RunesMod.ID, type.toString().toLowerCase(Locale.ENGLISH) + "_stone");
             var item = new Item(new FabricItemSettings().group(ItemGroup.COMBAT));
             all.add(new Entry(id, type, item));
         }

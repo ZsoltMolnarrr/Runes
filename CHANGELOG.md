@@ -1,3 +1,6 @@
+# 0.9.5
+- Fix launch crash for turkish machines
+
 # 0.9.4
 - Add chinese translation thanks to Kzeroko
 
