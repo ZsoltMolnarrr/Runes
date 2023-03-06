@@ -1,3 +1,7 @@
+# 0.9.6
+
+- Add Ukrainian translation thanks to unroman
+
 # 0.9.5
 - Fix launch crash for turkish machines
 
