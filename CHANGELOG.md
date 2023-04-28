@@ -1,3 +1,7 @@
+# 0.9.7
+
+- Add healing rune crafting
+
 # 0.9.6
 
 - Add Ukrainian translation thanks to unroman
