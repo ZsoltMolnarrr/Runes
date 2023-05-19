@@ -1,3 +1,7 @@
+# 0.9.8
+
+- Update Arcane Rune icon
+
 # 0.9.7
 
 - Add healing rune crafting
