@@ -5,9 +5,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.slot.ForgingSlotsManager;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -18,7 +20,7 @@ import java.util.List;
 
 // Mostly copied from SmithingScreenHandler
 public class RuneCraftingScreenHandler extends ForgingScreenHandler {
-    public static final ScreenHandlerType<RuneCraftingScreenHandler> HANDLER_TYPE = new ScreenHandlerType(RuneCraftingScreenHandler::new);
+    public static final ScreenHandlerType<RuneCraftingScreenHandler> HANDLER_TYPE = new ScreenHandlerType(RuneCraftingScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
     private final World world;
     @Nullable
     private RuneCraftingRecipe currentRecipe;
@@ -28,14 +30,22 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
     }
 
+    public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    }
+
     public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(HANDLER_TYPE, syncId, playerInventory, context);
-        this.world = playerInventory.player.world;
+        this.world = playerInventory.player.getWorld();
         this.recipes = this.world.getRecipeManager().listAllOfType(RuneCraftingRecipe.TYPE);
     }
 
-    public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    protected ForgingSlotsManager getForgingSlotsManager() {
+        return ForgingSlotsManager.create().input(0, 27, 47, (stack) -> {
+            return true;
+        }).input(1, 76, 47, (stack) -> {
+            return true;
+        }).output(2, 134, 47).build();
     }
 
     protected boolean canUse(BlockState state) {
@@ -47,8 +57,8 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraft(player.world, player, stack.getCount());
-        this.output.unlockLastRecipe(player);
+        stack.onCraft(player.getWorld(), player, stack.getCount());
+        this.output.unlockLastRecipe(player, this.getInputStacks());
         this.decrementStack(0);
         this.decrementStack(1);
 
@@ -60,6 +70,10 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
             world.playSound(player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1, true);
             runeCrafter.onPlayedRuneCraftingSound(player.age);
         }
+    }
+
+    private List<ItemStack> getInputStacks() {
+        return List.of(this.input.getStack(0), this.input.getStack(1));
     }
 
     private void decrementStack(int slot) {
@@ -74,7 +88,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
             this.output.setStack(0, ItemStack.EMPTY);
         } else {
             this.currentRecipe = (RuneCraftingRecipe)list.get(0);
-            ItemStack itemStack = this.currentRecipe.craft(this.input);
+            ItemStack itemStack = this.currentRecipe.craft(this.input, this.world.getRegistryManager());
             this.output.setLastRecipe(this.currentRecipe);
             this.output.setStack(0, itemStack);
         }

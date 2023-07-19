@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
@@ -30,13 +31,13 @@ public class RuneCraftingRecipe implements Recipe<Inventory> {
         return this.base.test(inventory.getStack(0)) && this.addition.test(inventory.getStack(1));
     }
 
-    public ItemStack craft(Inventory inventory) {
+    @Override
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
         ItemStack itemStack = this.result.copy();
         NbtCompound nbtCompound = inventory.getStack(0).getNbt();
         if (nbtCompound != null) {
             itemStack.setNbt(nbtCompound.copy());
         }
-
         return itemStack;
     }
 
@@ -44,7 +45,8 @@ public class RuneCraftingRecipe implements Recipe<Inventory> {
         return width * height >= 2;
     }
 
-    public ItemStack getOutput() {
+    @Override
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return this.result;
     }
 

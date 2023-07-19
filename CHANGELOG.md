@@ -1,3 +1,7 @@
+# 0.9.9
+
+- Update to 1.20.1
+
 # 0.9.8
 
 - Update Arcane Rune icon

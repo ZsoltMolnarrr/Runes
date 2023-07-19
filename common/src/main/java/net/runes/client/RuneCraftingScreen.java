@@ -3,8 +3,8 @@ package net.runes.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -22,8 +22,14 @@ public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler>
         this.titleY = 18;
     }
 
-    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         RenderSystem.disableBlend();
-        super.drawForeground(matrices, mouseX, mouseY);
+        super.drawForeground(context, mouseX, mouseY);
+    }
+
+    protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
+//        if (this.hasInvalidRecipe()) {
+//            context.drawTexture(TEXTURE, x + 65, y + 46, this.backgroundWidth, 0, 28, 21);
+//        }
     }
 }

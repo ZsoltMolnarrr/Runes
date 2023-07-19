@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -13,7 +13,7 @@ public class RuneCraftingCriteria extends AbstractCriterion<RuneCraftingCriteria
     public static final RuneCraftingCriteria INSTANCE = new RuneCraftingCriteria();
 
     @Override
-    protected Condition conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Condition conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         return new Condition();
     }
 
@@ -30,7 +30,7 @@ public class RuneCraftingCriteria extends AbstractCriterion<RuneCraftingCriteria
 
     public static class Condition extends AbstractCriterionConditions {
         public Condition() {
-            super(ID, EntityPredicate.Extended.EMPTY);
+            super(ID, LootContextPredicate.EMPTY);
         }
     }
 }

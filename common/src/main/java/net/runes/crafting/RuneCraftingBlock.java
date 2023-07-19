@@ -1,8 +1,10 @@
 package net.runes.crafting;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -23,7 +25,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class RuneCraftingBlock extends CraftingTableBlock {
     public static final String NAME = "crafting_altar";
-    public static final RuneCraftingBlock INSTANCE = new RuneCraftingBlock(FabricBlockSettings.of(Material.REPAIR_STATION).hardness(2).nonOpaque());
+    public static final RuneCraftingBlock INSTANCE = new RuneCraftingBlock(FabricBlockSettings.create().hardness(2).nonOpaque());
+    public static final BlockItem ITEM = new BlockItem(INSTANCE, new FabricItemSettings());
+
     private static final Text SCREEN_TITLE = Text.translatable("gui.runes.rune_crafting");
 
     public RuneCraftingBlock(Settings settings) {
@@ -64,7 +68,7 @@ public class RuneCraftingBlock extends CraftingTableBlock {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
 
     @Override
