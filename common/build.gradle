@@ -2,6 +2,10 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+architectury {
+    common(rootProject.enabled_platforms.split(","))
+}
+
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
@@ -9,12 +13,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     // Remove the next line if you don't want to depend on the API
     // modApi "dev.architectury:architectury:${rootProject.architectury_version_api}"
-
     implementation("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
-}
-
-architectury {
-    common()
 }
 
 publishing {
