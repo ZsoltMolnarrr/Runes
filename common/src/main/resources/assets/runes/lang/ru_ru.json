@@ -1,0 +1,10 @@
+{
+  "gui.runes.rune_crafting" : "Создание рун",
+  "block.runes.crafting_altar": "Руннический алтарь",
+  "item.runes.arcane_stone": "Руна арканы",
+  "item.runes.fire_stone": "Руна огня",
+  "item.runes.frost_stone": "Руна мороза",
+  "item.runes.healing_stone": "Руна исцеления",
+  "item.runes.lightning_stone": "Руна молнии",
+  "item.runes.soul_stone": "Руна душ"
+}
