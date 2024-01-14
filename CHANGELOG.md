@@ -1,9 +1,13 @@
-# 0.9.10
+# 0.9.11
 
 - Runes are now craftable out of stone tool materials
-- Add italian translation thanks to Zano1999 #3
 - Add `runes:runes` tag, including all runes
 - Add Rune Crafting Alter block item tooltip hint
+- Add Russian translation thanks to skel39eek66 #4
+
+# 0.9.10
+
+- Add italian translation thanks to Zano1999 #3
 
 # 0.9.9
 
