@@ -3,9 +3,11 @@ package net.runes.crafting;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -14,6 +16,7 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -21,17 +24,25 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.runes.RunesMod;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class RuneCraftingBlock extends CraftingTableBlock {
     public static final String NAME = "crafting_altar";
     public static final RuneCraftingBlock INSTANCE = new RuneCraftingBlock(FabricBlockSettings.create().hardness(2).nonOpaque());
     public static final BlockItem ITEM = new BlockItem(INSTANCE, new FabricItemSettings());
-
     private static final Text SCREEN_TITLE = Text.translatable("gui.runes.rune_crafting");
 
     public RuneCraftingBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        tooltip.add(Text.translatable("block." + RunesMod.ID + "." + NAME + ".hint").formatted(Formatting.GRAY, Formatting.ITALIC));
     }
 
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
