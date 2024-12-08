@@ -1,0 +1,11 @@
+{
+  "gui.runes.rune_crafting" : "Criação de runas",
+  "block.runes.crafting_altar": "Altar de criação de runas",
+  "block.runes.crafting_altar.hint": "Crie runas de forma mais econômica.",
+  "item.runes.arcane_stone": "Runa arcana",
+  "item.runes.fire_stone": "Runa de fogo",
+  "item.runes.frost_stone": "Runa de gelo",
+  "item.runes.healing_stone": "Runa de cura",
+  "item.runes.lightning_stone": "Runa de relâmpago",
+  "item.runes.soul_stone": "Runa de alma"
+}
