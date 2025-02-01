@@ -1,7 +1,16 @@
 {
   "values": [
-    "runes:small_rune_pouch",
-    "runes:medium_rune_pouch",
-    "runes:large_rune_pouch"
+    {
+      "id": "runes:small_rune_pouch",
+      "required": false
+    },
+    {
+      "id": "runes:medium_rune_pouch",
+      "required": false
+    },
+    {
+      "id": "runes:large_rune_pouch",
+      "required": false
+    }
   ]
 }
