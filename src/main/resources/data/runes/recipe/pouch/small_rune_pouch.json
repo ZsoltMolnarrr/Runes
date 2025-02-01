@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "bundleapi"
+    ]
+  },
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "W": {
+      "tag": "minecraft:wool"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "X": {
+      "item": "minecraft:ink_sac"
+    }
+  },
+  "pattern": [
+    " S ",
+    "WXW",
+    " W "
+  ],
+  "result": {
+    "id": "runes:small_rune_pouch"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "runes:item/small_rune_pouch"
+  },
+  "overrides": [
+    { "predicate": { "filled": 0.0000001 }, "model": "runes:item/small_rune_pouch_filled" }
+  ]
+}

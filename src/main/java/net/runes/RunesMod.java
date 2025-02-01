@@ -2,6 +2,7 @@ package net.runes;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,6 +24,9 @@ public class RunesMod implements ModInitializer {
         });
         Registry.register(Registries.SCREEN_HANDLER, Identifier.of(ID, RuneCraftingRecipe.NAME), RuneCraftingScreenHandler.HANDLER_TYPE);
 
+        if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
+            RunePouches.register();
+        }
         for(var entry: RuneItems.entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }

@@ -1,3 +1,8 @@
+# 1.1.0
+
+- Add craftable Rune Pouches 
+- Update some translations
+
 # 1.0.3
 
 - Lower Fabric API version requirement

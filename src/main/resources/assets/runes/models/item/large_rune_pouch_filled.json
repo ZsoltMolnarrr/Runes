@@ -1,0 +1,6 @@
+{
+  "parent": "runes:item/large_rune_pouch",
+  "textures": {
+    "layer0": "runes:item/large_rune_pouch_filled"
+  }
+}
