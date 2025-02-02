@@ -14,19 +14,20 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.runes.RunesMod;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RunePouches {
-
     private static final TagKey<Item> RUNES = TagKey.of(Registries.ITEM.getKey(), Identifier.of(RunesMod.ID, "runes"));
 
     public static final List<Entry> entries = new ArrayList<>();
     public record Entry(Identifier id, int capacity, Item item) {  }
-    public static Entry entry(String name, int capacity) {
-        var bundle = new CustomBundleItem(RUNES, new Item.Settings()
+    public static Entry entry(String name, int capacity, @Nullable Rarity rarity) {
+        var settings = new Item.Settings()
                 .maxCount(1)
                 .component(
                         DataComponentTypes.LORE,
@@ -38,8 +39,11 @@ public class RunePouches {
                 .component(
                         BundleAPI.CUSTOM_BUNDLE_CONTENTS_COMPONENT,
                         CustomBundleContentsComponent.builder().size_multiplier(capacity).build()
-                )
-        );
+                );
+        if (rarity != null) {
+            settings.rarity(rarity);
+        }
+        var bundle = new CustomBundleItem(RUNES, settings);
         var id = Identifier.of(RunesMod.ID, name);
         var entry = new Entry(id, capacity, bundle);
         entries.add(entry);
@@ -47,9 +51,9 @@ public class RunePouches {
     }
 
     public static void register() {
-        entry("small_rune_pouch", 4);
-        entry("medium_rune_pouch", 8);
-        entry("large_rune_pouch", 12);
+        entry("small_rune_pouch", 4, null);
+        entry("medium_rune_pouch", 8, null);
+        entry("large_rune_pouch", 12, Rarity.UNCOMMON);
 
         for(var entry: entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
