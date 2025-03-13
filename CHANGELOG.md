@@ -1,3 +1,8 @@
+# 1.1.1
+
+- Fix mining crafting altar with pickaxe
+- Fix compatibility with Visual Workbench mod
+
 # 1.1.0
 
 - Add craftable Rune Pouches 
