@@ -1,3 +1,7 @@
+# 1.1.2
+
+- Update chinese translation
+
 # 1.1.1
 
 - Fix mining crafting altar with pickaxe
