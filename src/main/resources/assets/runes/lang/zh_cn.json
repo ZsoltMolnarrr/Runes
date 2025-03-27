@@ -1,10 +1,15 @@
 {
-  "gui.runes.rune_crafting" : "符文制作",
-  "block.runes.crafting_altar": "符文制作祭坛",
-  "item.runes.arcane_stone": "奥秘符文",
+  "gui.runes.rune_crafting" : "符文合成",
+  "block.runes.crafting_altar": "符文祭坛",
+  "block.runes.crafting_altar.hint": "更高效地合成符文。",
+  "item.runes.small_rune_pouch": "符文袋",
+  "item.runes.medium_rune_pouch": "幻影符文袋",
+  "item.runes.large_rune_pouch": "秘法符文袋",
+  "item.runes.rune_pouch.hint": "装备时提供施法所需的符文。",
+  "item.runes.arcane_stone": "奥术符文",
   "item.runes.fire_stone": "火焰符文",
-  "item.runes.frost_stone": "寒冰符文",
+  "item.runes.frost_stone": "冰霜符文",
   "item.runes.healing_stone": "治愈符文",
-  "item.runes.lightning_stone": "雷电符文",
+  "item.runes.lightning_stone": "闪电符文",
   "item.runes.soul_stone": "灵魂符文"
 }
