@@ -1,3 +1,7 @@
+# 1.1.3
+
+- Update translations
+
 # 1.1.2
 
 - Update chinese translation
