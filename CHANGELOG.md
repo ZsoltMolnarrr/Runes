@@ -1,3 +1,7 @@
+# 1.2.0
+
+- Migrate to Architectury
+
 # 1.1.3
 
 - Update translations

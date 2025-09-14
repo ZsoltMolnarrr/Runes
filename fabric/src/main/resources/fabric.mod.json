@@ -18,11 +18,11 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "net.runes.client.RunesClientMod"
-    ],
     "main": [
-      "net.runes.RunesMod"
+      "net.runes.fabric.FabricMod"
+    ],
+    "client": [
+      "net.runes.fabric.client.FabricClientMod"
     ]
   },
   "mixins": [
@@ -30,7 +30,8 @@
   ],
   "depends": {
     "minecraft": ">=${minecraft_compat_version}",
-    "fabricloader": ">=${fabric_loader_version}"
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*"
   },
   "custom": {
     "modmenu": {
