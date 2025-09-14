@@ -9,5 +9,10 @@ public final class FabricMod implements ModInitializer {
     public void onInitialize() {
         // Run our common setup.
         RunesMod.init();
+        RunesMod.registerSounds();
+        RunesMod.registerRecipeType();
+        RunesMod.registerScreenHandler();
+        RunesMod.registerBlocks();
+        RunesMod.registerItems();
     }
 }
