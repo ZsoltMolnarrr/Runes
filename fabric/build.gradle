@@ -5,6 +5,8 @@ plugins {
     id "com.modrinth.minotaur" version "2.+"
 }
 
+def platform = project.name;
+
 architectury {
     platformSetupLoomIde()
     fabric()
@@ -105,16 +107,13 @@ if(project.hasProperty('release_type')) {
         token = System.getenv("MODRINTH_API_KEY")
         projectId = System.getenv("MODRINTH_PROJECT_ID") // This can be the project ID or the slug. Either will work!
         versionName = "${version}" // You don't need to set this manually. Will fail if Modrinth has this version already
-        versionNumber = "${version}" // You don't need to set this manually. Will fail if Modrinth has this version already
+        versionNumber = "${version}-${platform}" // You don't need to set this manually. Will fail if Modrinth has this version already
         versionType = release_type // This is the default -- can also be `beta` or `alpha`
         uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
         gameVersions = ["${project.minecraft_version}", "${project.minecraft_compat_version}"] // Must be an array, even with only one version
         loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
         changelog = changelog_last_section()
         dependencies { // A special DSL for creating dependencies
-            // scope.type
-            // The scope can be `required`, `optional`, `incompatible`, or `embedded`
-            // The type can either be `project` or `version`
             required.project 'fabric-api'
             required.project 'bundle-api'
         }
