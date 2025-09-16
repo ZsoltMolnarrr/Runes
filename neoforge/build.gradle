@@ -54,6 +54,8 @@ dependencies {
 
     // FFAPI
     modImplementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:${project.forgified_fabric_api_version}"
+    // Bundle API
+    include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}"))
 }
 
 processResources {
