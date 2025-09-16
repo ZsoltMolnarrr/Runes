@@ -13,15 +13,9 @@ public class RunesMod {
     public static final String ID = "runes";
 
     public static void init() {
-
-
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
             content.add(RuneCraftingBlock.ITEM);
         });
-
-        if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
-            RunePouches.register();
-        }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
             for(var entry: RuneItems.entries) {
                 content.add(entry.item());
@@ -49,6 +43,9 @@ public class RunesMod {
         Registry.register(Registries.ITEM, Identifier.of(ID, RuneCraftingBlock.NAME), RuneCraftingBlock.ITEM);
         for(var entry: RuneItems.entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
+        }
+        if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
+            RunePouches.register();
         }
     }
 }
