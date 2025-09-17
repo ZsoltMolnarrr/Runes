@@ -49,7 +49,7 @@ dependencies {
     // Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     // Bundle API
-    include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}"))
+    include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
 }
 
 processResources {
