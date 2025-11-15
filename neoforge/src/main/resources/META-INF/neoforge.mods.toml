@@ -8,6 +8,7 @@ modId = "runes"
 version = "${version}"
 displayName = "Runes"
 authors = "Daedelus"
+credits = "Tutta (Artwork), Crispytwig (Artwork)"
 description = '''
 Craft runes to serve as ammo for spells.
 '''

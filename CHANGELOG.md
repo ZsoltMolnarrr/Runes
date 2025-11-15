@@ -1,3 +1,7 @@
+# 1.2.1
+
+- Amazing new Rune Pouch textures by Tutta
+
 # 1.2.0
 
 - Migrate to Architectury
