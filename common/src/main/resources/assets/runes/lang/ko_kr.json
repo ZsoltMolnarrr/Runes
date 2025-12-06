@@ -7,5 +7,9 @@
   "item.runes.frost_stone": "서리의 룬",
   "item.runes.healing_stone": "치유의 룬",
   "item.runes.lightning_stone": "번개의 룬",
-  "item.runes.soul_stone": "영혼의 룬"
+  "item.runes.soul_stone": "영혼의 룬",
+  "item.runes.small_rune_pouch": "룬 주머니",
+  "item.runes.medium_rune_pouch": "환영의 룬 주머니",
+  "item.runes.large_rune_pouch": "신비한 룬 주머니",
+  "item.runes.rune_pouch.hint": "장착 시, 주문 시전을 위한 룬을 제공합니다."
 }
