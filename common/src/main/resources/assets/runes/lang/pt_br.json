@@ -1,7 +1,11 @@
 {
-  "gui.runes.rune_crafting" : "Criação de runas",
+  "gui.runes.rune_crafting": "Criação de runas",
   "block.runes.crafting_altar": "Altar de criação de runas",
   "block.runes.crafting_altar.hint": "Crie runas de forma mais econômica.",
+  "item.runes.small_rune_pouch": "Bolsa de Runas",
+  "item.runes.medium_rune_pouch": "Bolsa de Runas Fantasma",
+  "item.runes.large_rune_pouch": "Bolsa de Runas Mística",
+  "item.runes.rune_pouch.hint": "Fornece runas para o lançamento de feitiços quando equipada.",
   "item.runes.arcane_stone": "Runa arcana",
   "item.runes.fire_stone": "Runa de fogo",
   "item.runes.frost_stone": "Runa de gelo",
