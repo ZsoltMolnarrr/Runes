@@ -1,3 +1,7 @@
+# 1.2.2
+
+- Update translations
+
 # 1.2.1
 
 - Amazing new Rune Pouch textures by Tutta
