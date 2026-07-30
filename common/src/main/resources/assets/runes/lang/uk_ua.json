@@ -1,6 +1,11 @@
 {
-  "gui.runes.rune_crafting" : "Створювання рун",
+  "gui.runes.rune_crafting": "Створювання рун",
   "block.runes.crafting_altar": "Вівтар створення рун",
+  "block.runes.crafting_altar.hint": "Дозволяє крафтити руни економніше.",
+  "item.runes.small_rune_pouch": "Мішечок для рун",
+  "item.runes.medium_rune_pouch": "Фантомний мішечок для рун",
+  "item.runes.large_rune_pouch": "Містичний мішечок для рун",
+  "item.runes.rune_pouch.hint": "Надає руни для касту заклинань, коли екіпіровано.",
   "item.runes.arcane_stone": "Таємнича руна",
   "item.runes.fire_stone": "Вогняна руна",
   "item.runes.frost_stone": "Морозна руна",
