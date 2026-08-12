@@ -3,7 +3,6 @@ package net.runes.neoforge;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.RegistryKeys;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -36,7 +35,7 @@ public final class NeoForgeMod {
         });
         event.register(RegistryKeys.ITEM, reg -> {
             RunesMod.registerItems();
-            if (ModList.get().isLoaded("bundleapi")) {
+            if (PlatformUtils.isModLoaded("bundleapi")) {
                 RunePouches.register();
             }
         });
