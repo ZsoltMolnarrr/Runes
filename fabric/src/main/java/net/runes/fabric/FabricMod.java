@@ -29,8 +29,14 @@ public final class FabricMod implements ModInitializer {
             for (var entry : RuneItems.entries) {
                 content.add(entry.item());
             }
-            for (var entry : RunePouches.entries) {
-                content.add(entry.item());
+            // Gate BEFORE touching RunePouches: reading the static field forces the JVM to
+            // link/verify RunePouches, whose factory references BundleAPI's CustomBundleItem.
+            // Without this guard that verification fails with NoClassDefFoundError when
+            // BundleAPI is absent — the empty `entries` list never even gets iterated.
+            if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
+                for (var entry : RunePouches.entries) {
+                    content.add(entry.item());
+                }
             }
         });
     }

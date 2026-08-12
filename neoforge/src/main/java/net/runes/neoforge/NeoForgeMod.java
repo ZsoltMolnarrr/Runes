@@ -48,8 +48,14 @@ public final class NeoForgeMod {
             for (var entry : RuneItems.entries) {
                 event.add(entry.item());
             }
-            for (var entry : RunePouches.entries) {
-                event.add(entry.item());
+            // Gate BEFORE touching RunePouches: reading the static field forces the JVM to
+            // link/verify RunePouches, whose factory references BundleAPI's CustomBundleItem.
+            // Without this guard that verification fails with NoClassDefFoundError when
+            // BundleAPI is absent — the empty `entries` list never even gets iterated.
+            if (PlatformUtils.isModLoaded("bundleapi")) {
+                for (var entry : RunePouches.entries) {
+                    event.add(entry.item());
+                }
             }
         }
     }
