@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "ルーン作成",
+  "block.runes.crafting_altar": "ルーン作成の祭壇",
+  "block.runes.crafting_altar.hint": "ルーンをより効率的に作成できます。",
+  "item.runes.small_rune_pouch": "ルーンポーチ",
+  "item.runes.medium_rune_pouch": "ファントムルーンポーチ",
+  "item.runes.large_rune_pouch": "ミスティックルーンポーチ",
+  "item.runes.rune_pouch.hint": "装備すると、呪文詠唱用のルーンを供給します。",
+  "item.runes.arcane_stone": "アーケインルーン",
+  "item.runes.fire_stone": "ファイアルーン",
+  "item.runes.frost_stone": "フロストルーン",
+  "item.runes.healing_stone": "ヒーリングルーン",
+  "item.runes.lightning_stone": "ライトニングルーン",
+  "item.runes.soul_stone": "ソウルルーン"
+}

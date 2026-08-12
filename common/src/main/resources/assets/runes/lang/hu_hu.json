@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Rúnakészítés",
+  "block.runes.crafting_altar": "Rúnakészítő oltár",
+  "block.runes.crafting_altar.hint": "Költséghatékonyabb rúnakészítés.",
+  "item.runes.small_rune_pouch": "Rúnaerszény",
+  "item.runes.medium_rune_pouch": "Kísértet rúnaerszény",
+  "item.runes.large_rune_pouch": "Misztikus rúnaerszény",
+  "item.runes.rune_pouch.hint": "Felszerelve rúnákat biztosít varázsláshoz.",
+  "item.runes.arcane_stone": "Árkán rúna",
+  "item.runes.fire_stone": "Tűzrúna",
+  "item.runes.frost_stone": "Fagyrúna",
+  "item.runes.healing_stone": "Gyógyító rúna",
+  "item.runes.lightning_stone": "Villámrúna",
+  "item.runes.soul_stone": "Lélekrúna"
+}

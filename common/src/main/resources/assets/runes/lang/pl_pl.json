@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Tworzenie run",
+  "block.runes.crafting_altar": "Ołtarz tworzenia run",
+  "block.runes.crafting_altar.hint": "Pozwala taniej tworzyć runy.",
+  "item.runes.small_rune_pouch": "Sakiewka run",
+  "item.runes.medium_rune_pouch": "Widmowa sakiewka run",
+  "item.runes.large_rune_pouch": "Mistyczna sakiewka run",
+  "item.runes.rune_pouch.hint": "Zapewnia runy do rzucania zaklęć, gdy jest założona.",
+  "item.runes.arcane_stone": "Runa tajemna",
+  "item.runes.fire_stone": "Runa ognia",
+  "item.runes.frost_stone": "Runa mrozu",
+  "item.runes.healing_stone": "Runa uzdrawiania",
+  "item.runes.lightning_stone": "Runa błyskawicy",
+  "item.runes.soul_stone": "Runa duszy"
+}

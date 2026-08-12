@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Rün Yapımı",
+  "block.runes.crafting_altar": "Rün Yapım Sunağı",
+  "block.runes.crafting_altar.hint": "Rünleri daha az maliyetle üretir.",
+  "item.runes.small_rune_pouch": "Rün Kesesi",
+  "item.runes.medium_rune_pouch": "Hayalet Rün Kesesi",
+  "item.runes.large_rune_pouch": "Mistik Rün Kesesi",
+  "item.runes.rune_pouch.hint": "Kuşanıldığında büyü yapmak için rün sağlar.",
+  "item.runes.arcane_stone": "Gizemli Rün",
+  "item.runes.fire_stone": "Ateş Rünü",
+  "item.runes.frost_stone": "Buz Rünü",
+  "item.runes.healing_stone": "Şifa Rünü",
+  "item.runes.lightning_stone": "Yıldırım Rünü",
+  "item.runes.soul_stone": "Ruh Rünü"
+}

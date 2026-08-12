@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Runenherstellung",
+  "block.runes.crafting_altar": "Runenaltar",
+  "block.runes.crafting_altar.hint": "Stellt Runen kostengünstiger her.",
+  "item.runes.small_rune_pouch": "Runenbeutel",
+  "item.runes.medium_rune_pouch": "Phantom-Runenbeutel",
+  "item.runes.large_rune_pouch": "Mystischer Runenbeutel",
+  "item.runes.rune_pouch.hint": "Liefert Runen zum Zaubern, wenn angelegt.",
+  "item.runes.arcane_stone": "Arkane Rune",
+  "item.runes.fire_stone": "Feuerrune",
+  "item.runes.frost_stone": "Frostrune",
+  "item.runes.healing_stone": "Heilrune",
+  "item.runes.lightning_stone": "Blitzrune",
+  "item.runes.soul_stone": "Seelenrune"
+}

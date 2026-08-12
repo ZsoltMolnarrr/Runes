@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Výroba run",
+  "block.runes.crafting_altar": "Oltář na výrobu run",
+  "block.runes.crafting_altar.hint": "Umožňuje levnější výrobu run.",
+  "item.runes.small_rune_pouch": "Váček na runy",
+  "item.runes.medium_rune_pouch": "Přízračný váček na runy",
+  "item.runes.large_rune_pouch": "Mystický váček na runy",
+  "item.runes.rune_pouch.hint": "Po nasazení poskytuje runy pro sesílání kouzel.",
+  "item.runes.arcane_stone": "Arkánní runa",
+  "item.runes.fire_stone": "Ohnivá runa",
+  "item.runes.frost_stone": "Ledová runa",
+  "item.runes.healing_stone": "Léčivá runa",
+  "item.runes.lightning_stone": "Blesková runa",
+  "item.runes.soul_stone": "Duševní runa"
+}

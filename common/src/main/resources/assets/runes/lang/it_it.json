@@ -1,6 +1,11 @@
 {
   "gui.runes.rune_crafting" : "Creazione rune",
   "block.runes.crafting_altar": "Altare runico",
+  "block.runes.crafting_altar.hint": "Crea rune in modo più economico.",
+  "item.runes.small_rune_pouch": "Sacca di rune",
+  "item.runes.medium_rune_pouch": "Sacca di rune fantasma",
+  "item.runes.large_rune_pouch": "Sacca di rune mistica",
+  "item.runes.rune_pouch.hint": "Fornisce rune per lanciare incantesimi quando equipaggiata.",
   "item.runes.arcane_stone": "Runa arcana",
   "item.runes.fire_stone": "Runa di fuoco",
   "item.runes.frost_stone": "Runa del gelo",

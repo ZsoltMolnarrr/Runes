@@ -1,7 +1,7 @@
 # 1.3.0
 
 - Remove FFAPI for NeoForge
-- Update translations
+- Update translations, now 20 languages are supported
 
 # 1.2.2
 

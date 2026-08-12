@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "การประดิษฐ์รูน",
+  "block.runes.crafting_altar": "แท่นประดิษฐ์รูน",
+  "block.runes.crafting_altar.hint": "ประดิษฐ์รูนโดยใช้วัตถุดิบน้อยลง",
+  "item.runes.small_rune_pouch": "ถุงใส่รูน",
+  "item.runes.medium_rune_pouch": "ถุงใส่รูนภูตผี",
+  "item.runes.large_rune_pouch": "ถุงใส่รูนลึกลับ",
+  "item.runes.rune_pouch.hint": "มอบรูนสำหรับร่ายเวทเมื่อสวมใส่",
+  "item.runes.arcane_stone": "รูนเวทมนตร์",
+  "item.runes.fire_stone": "รูนไฟ",
+  "item.runes.frost_stone": "รูนน้ำแข็ง",
+  "item.runes.healing_stone": "รูนบำบัด",
+  "item.runes.lightning_stone": "รูนสายฟ้า",
+  "item.runes.soul_stone": "รูนวิญญาณ"
+}

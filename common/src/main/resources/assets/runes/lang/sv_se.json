@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Runtillverkning",
+  "block.runes.crafting_altar": "Runtillverkningsaltare",
+  "block.runes.crafting_altar.hint": "Tillverka runor mer kostnadseffektivt.",
+  "item.runes.small_rune_pouch": "Runpåse",
+  "item.runes.medium_rune_pouch": "Fantomrunpåse",
+  "item.runes.large_rune_pouch": "Mystisk runpåse",
+  "item.runes.rune_pouch.hint": "Ger runor för besvärjelser, när den bärs.",
+  "item.runes.arcane_stone": "Arkanruna",
+  "item.runes.fire_stone": "Eldruna",
+  "item.runes.frost_stone": "Frostruna",
+  "item.runes.healing_stone": "Läkeruna",
+  "item.runes.lightning_stone": "Blixtruna",
+  "item.runes.soul_stone": "Själaruna"
+}

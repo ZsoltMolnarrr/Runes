@@ -1,0 +1,15 @@
+{
+  "gui.runes.rune_crafting": "Chế Tạo Rune",
+  "block.runes.crafting_altar": "Bàn Thờ Chế Tạo Rune",
+  "block.runes.crafting_altar.hint": "Chế tạo rune tiết kiệm nguyên liệu hơn.",
+  "item.runes.small_rune_pouch": "Túi Rune",
+  "item.runes.medium_rune_pouch": "Túi Rune Bóng Ma",
+  "item.runes.large_rune_pouch": "Túi Rune Huyền Bí",
+  "item.runes.rune_pouch.hint": "Cung cấp rune để thi triển phép thuật khi được trang bị.",
+  "item.runes.arcane_stone": "Rune Huyền Thuật",
+  "item.runes.fire_stone": "Rune Lửa",
+  "item.runes.frost_stone": "Rune Băng",
+  "item.runes.healing_stone": "Rune Hồi Phục",
+  "item.runes.lightning_stone": "Rune Sấm Sét",
+  "item.runes.soul_stone": "Rune Linh Hồn"
+}
