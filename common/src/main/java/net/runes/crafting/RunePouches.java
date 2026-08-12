@@ -3,11 +3,9 @@ package net.runes.crafting;
 import com.github.theredbrain.bundleapi.BundleAPI;
 import com.github.theredbrain.bundleapi.component.type.CustomBundleContentsComponent;
 import com.github.theredbrain.bundleapi.item.CustomBundleItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.TagKey;
@@ -58,10 +56,7 @@ public class RunePouches {
         for(var entry: entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-            for(var entry: entries) {
-                content.add(entry.item());
-            }
-        });
+        // Creative-tab placement (COMBAT group) is registered per-platform from each loader's entrypoint,
+        // iterating RunePouches.entries — no Fabric API ItemGroupEvents in common.
     }
 }

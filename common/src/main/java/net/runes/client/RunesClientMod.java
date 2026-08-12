@@ -1,11 +1,10 @@
 package net.runes.client;
 
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.runes.crafting.RuneCraftingBlock;
-import net.runes.crafting.RuneCraftingScreenHandler;
-
 public class RunesClientMod {
     public static void init() {
-        HandledScreens.register(RuneCraftingScreenHandler.HANDLER_TYPE, RuneCraftingScreen::new);
+        // Screen registration is loader-specific and lives in each platform's client entrypoint
+        // (Fabric: HandledScreens.register; NeoForge: RegisterMenuScreensEvent) — mirroring SpellEngine.
+        // HandledScreens.register is a vanilla-private method that Fabric API widens; calling it from
+        // common crashes on NeoForge (IllegalAccessError) without Forgified Fabric API.
     }
 }

@@ -1,3 +1,8 @@
+# 1.3.0
+
+- Remove FFAPI for NeoForge
+- Update translations
+
 # 1.2.2
 
 - Update translations
