@@ -39,9 +39,6 @@ repositories {
             includeGroup 'maven.modrinth'
         }
     }
-    maven {
-        url "https://maven.su5ed.dev/releases"
-    }
     mavenLocal()
 }
 
