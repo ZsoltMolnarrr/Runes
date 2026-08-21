@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "การประดิษฐ์รูน",
+  "emi.category.runes.crafting": "การประดิษฐ์รูน",
   "block.runes.crafting_altar": "แท่นประดิษฐ์รูน",
   "block.runes.crafting_altar.hint": "ประดิษฐ์รูนโดยใช้วัตถุดิบน้อยลง",
   "item.runes.small_rune_pouch": "ถุงใส่รูน",

@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting" : "符文合成",
+  "emi.category.runes.crafting" : "符文合成",
   "block.runes.crafting_altar": "符文祭坛",
   "block.runes.crafting_altar.hint": "更高效地合成符文。",
   "item.runes.small_rune_pouch": "符文袋",

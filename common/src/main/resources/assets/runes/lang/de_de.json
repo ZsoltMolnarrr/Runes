@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Runenherstellung",
+  "emi.category.runes.crafting": "Runenherstellung",
   "block.runes.crafting_altar": "Runenaltar",
   "block.runes.crafting_altar.hint": "Stellt Runen kostengünstiger her.",
   "item.runes.small_rune_pouch": "Runenbeutel",

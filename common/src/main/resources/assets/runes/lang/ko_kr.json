@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "룬 제작",
+  "emi.category.runes.crafting": "룬 제작",
   "block.runes.crafting_altar": "룬 제작 제단",
   "block.runes.crafting_altar.hint": "룬을 더 비용 효율적으로 제작하세요.",
   "item.runes.arcane_stone": "비전의 룬",

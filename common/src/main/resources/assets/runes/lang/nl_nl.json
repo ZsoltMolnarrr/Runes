@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Runen vervaardigen",
+  "emi.category.runes.crafting": "Runen vervaardigen",
   "block.runes.crafting_altar": "Runenvervaardigingsaltaar",
   "block.runes.crafting_altar.hint": "Vervaardig runen voordeliger.",
   "item.runes.small_rune_pouch": "Runenbuidel",

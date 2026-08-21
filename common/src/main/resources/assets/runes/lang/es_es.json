@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting" : "Elaboración de Runas",
+  "emi.category.runes.crafting" : "Elaboración de Runas",
   "block.runes.crafting_altar": "Altar de Elaboración de Runas",
   "block.runes.crafting_altar.hint": "Elabora runas con coste más eficiente.",
   "item.runes.small_rune_pouch": "Bolsa de Runas",

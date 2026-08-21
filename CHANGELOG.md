@@ -1,3 +1,7 @@
+# 1.3.1
+
+- Added rune crafting recipe integration
+
 # 1.3.0
 
 - Remove FFAPI for NeoForge

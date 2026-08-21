@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Rün Yapımı",
+  "emi.category.runes.crafting": "Rün Yapımı",
   "block.runes.crafting_altar": "Rün Yapım Sunağı",
   "block.runes.crafting_altar.hint": "Rünleri daha az maliyetle üretir.",
   "item.runes.small_rune_pouch": "Rün Kesesi",

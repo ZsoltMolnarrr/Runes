@@ -10,6 +10,10 @@ repositories {
             includeGroup 'maven.modrinth'
         }
     }
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/releases'
+    }
     mavenLocal()
 }
 
@@ -21,4 +25,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
 //    modImplementation("com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}")
+
+    // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral
+    // subset EMI publishes for Architectury common modules. Compile-only: `net.runes.compat.emi`
+    // is only ever class-loaded by EMI itself, so the mod runs fine without EMI present.
+    modCompileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
 }

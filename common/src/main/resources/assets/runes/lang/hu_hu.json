@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Rúnakészítés",
+  "emi.category.runes.crafting": "Rúnakészítés",
   "block.runes.crafting_altar": "Rúnakészítő oltár",
   "block.runes.crafting_altar.hint": "Költséghatékonyabb rúnakészítés.",
   "item.runes.small_rune_pouch": "Rúnaerszény",

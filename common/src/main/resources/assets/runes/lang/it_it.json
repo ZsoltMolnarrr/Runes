@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting" : "Creazione rune",
+  "emi.category.runes.crafting" : "Creazione rune",
   "block.runes.crafting_altar": "Altare runico",
   "block.runes.crafting_altar.hint": "Crea rune in modo più economico.",
   "item.runes.small_rune_pouch": "Sacca di rune",

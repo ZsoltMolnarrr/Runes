@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Výroba run",
+  "emi.category.runes.crafting": "Výroba run",
   "block.runes.crafting_altar": "Oltář na výrobu run",
   "block.runes.crafting_altar.hint": "Umožňuje levnější výrobu run.",
   "item.runes.small_rune_pouch": "Váček na runy",

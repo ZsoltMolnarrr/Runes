@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Створювання рун",
+  "emi.category.runes.crafting": "Створювання рун",
   "block.runes.crafting_altar": "Вівтар створення рун",
   "block.runes.crafting_altar.hint": "Дозволяє крафтити руни економніше.",
   "item.runes.small_rune_pouch": "Мішечок для рун",

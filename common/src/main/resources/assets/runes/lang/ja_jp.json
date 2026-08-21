@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "ルーン作成",
+  "emi.category.runes.crafting": "ルーン作成",
   "block.runes.crafting_altar": "ルーン作成の祭壇",
   "block.runes.crafting_altar.hint": "ルーンをより効率的に作成できます。",
   "item.runes.small_rune_pouch": "ルーンポーチ",

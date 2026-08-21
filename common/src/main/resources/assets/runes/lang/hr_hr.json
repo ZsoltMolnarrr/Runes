@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Izrada runa",
+  "emi.category.runes.crafting": "Izrada runa",
   "block.runes.crafting_altar": "Oltar za izradu runa",
   "block.runes.crafting_altar.hint": "Izrađuj rune uz manji utrošak materijala.",
   "item.runes.small_rune_pouch": "Vrećica za rune",

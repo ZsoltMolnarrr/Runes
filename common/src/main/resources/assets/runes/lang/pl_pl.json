@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Tworzenie run",
+  "emi.category.runes.crafting": "Tworzenie run",
   "block.runes.crafting_altar": "Ołtarz tworzenia run",
   "block.runes.crafting_altar.hint": "Pozwala taniej tworzyć runy.",
   "item.runes.small_rune_pouch": "Sakiewka run",

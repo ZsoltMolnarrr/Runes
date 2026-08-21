@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Criação de runas",
+  "emi.category.runes.crafting": "Criação de runas",
   "block.runes.crafting_altar": "Altar de criação de runas",
   "block.runes.crafting_altar.hint": "Crie runas de forma mais econômica.",
   "item.runes.small_rune_pouch": "Bolsa de Runas",

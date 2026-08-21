@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Chế Tạo Rune",
+  "emi.category.runes.crafting": "Chế Tạo Rune",
   "block.runes.crafting_altar": "Bàn Thờ Chế Tạo Rune",
   "block.runes.crafting_altar.hint": "Chế tạo rune tiết kiệm nguyên liệu hơn.",
   "item.runes.small_rune_pouch": "Túi Rune",

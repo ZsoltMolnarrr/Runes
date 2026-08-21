@@ -22,6 +22,19 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         this.result = result;
     }
 
+    public Ingredient base() {
+        return this.base;
+    }
+
+    public Ingredient addition() {
+        return this.addition;
+    }
+
+    /** The recipe's raw, unmodified result — {@link #craft} additionally copies components off the base stack. */
+    public ItemStack result() {
+        return this.result;
+    }
+
     public boolean matches(RuneCraftingRecipeInput input, World world) {
         return this.base.test(input.getStackInSlot(0)) && this.addition.test(input.getStackInSlot(1));
     }

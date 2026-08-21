@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Pembuatan Rune",
+  "emi.category.runes.crafting": "Pembuatan Rune",
   "block.runes.crafting_altar": "Altar Pembuatan Rune",
   "block.runes.crafting_altar.hint": "Membuat rune dengan biaya lebih hemat.",
   "item.runes.small_rune_pouch": "Kantong Rune",

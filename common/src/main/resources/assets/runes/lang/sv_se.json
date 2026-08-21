@@ -1,5 +1,6 @@
 {
   "gui.runes.rune_crafting": "Runtillverkning",
+  "emi.category.runes.crafting": "Runtillverkning",
   "block.runes.crafting_altar": "Runtillverkningsaltare",
   "block.runes.crafting_altar.hint": "Tillverka runor mer kostnadseffektivt.",
   "item.runes.small_rune_pouch": "Runpåse",
