@@ -1,6 +1,10 @@
-# 1.3.1
+# 1.3.2
 
 - Added rune crafting recipe integration
+
+# 1.3.1
+
+- Fix some FFAPI dependency stuff
 
 # 1.3.0
 
