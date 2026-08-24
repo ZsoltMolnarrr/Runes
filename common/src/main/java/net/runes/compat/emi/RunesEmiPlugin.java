@@ -6,8 +6,6 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.EmiRecipeSorting;
 import dev.emi.emi.api.stack.EmiStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.runes.crafting.RuneCrafting;
 import net.runes.crafting.RuneCraftingBlock;
 import net.runes.crafting.RuneCraftingRecipe;
@@ -22,7 +20,6 @@ import net.runes.crafting.RuneCraftingRecipe;
  * class, so it is never class-loaded when EMI is absent.
  */
 @EmiEntrypoint
-@Environment(EnvType.CLIENT)
 public class RunesEmiPlugin implements EmiPlugin {
     /** Category id {@code runes:crafting} → name key {@code emi.category.runes.crafting}. */
     public static final EmiStack ALTAR = EmiStack.of(RuneCraftingBlock.ITEM);

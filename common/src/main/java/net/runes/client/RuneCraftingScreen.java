@@ -1,7 +1,5 @@
 package net.runes.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,7 +9,6 @@ import net.runes.RunesMod;
 import net.runes.crafting.RuneCraftingBlock;
 import net.runes.crafting.RuneCraftingScreenHandler;
 
-@Environment(EnvType.CLIENT)
 public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(RunesMod.ID, "textures/gui/" + RuneCraftingBlock.NAME + ".png");
 
