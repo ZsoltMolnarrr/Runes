@@ -15,7 +15,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +23,6 @@ import java.util.Optional;
 public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     public static final ScreenHandlerType<RuneCraftingScreenHandler> HANDLER_TYPE = new ScreenHandlerType(RuneCraftingScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
     private final World world;
-    @Nullable
-    private RecipeEntry<RuneCraftingRecipe> currentRecipe;
 
     public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -52,10 +49,6 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         return state.isOf(RuneCraftingBlock.INSTANCE);
     }
 
-    protected boolean canTakeOutput(PlayerEntity player, boolean present) {
-        return this.currentRecipe != null && this.currentRecipe.value().matches(this.createRecipeInput(), this.world);
-    }
-
     private RuneCraftingRecipeInput createRecipeInput() {
         return new RuneCraftingRecipeInput(this.input.getStack(0), this.input.getStack(1));
     }
@@ -70,8 +63,8 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
 //            RuneCraftingCriteria.INSTANCE.trigger(serverPlayer);
 //        }
         var runeCrafter = (RuneCrafter)player;
-        if (runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
-            // Runs server-side only (recipes are not synced to the client since 1.21.2, so `canTakeOutput` is false there).
+        // Like vanilla, `onTakeOutput` also runs on the client (prediction); only the server broadcasts the sound.
+        if (!world.isClient() && runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
             // Source must be null: a non-null source is the "except" player of the broadcast and would never hear it.
             world.playSound(null, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1);
             runeCrafter.onPlayedRuneCraftingSound(player.age);
@@ -102,11 +95,9 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         if (result.isPresent()) {
             var recipeEntry = result.get();
             ItemStack itemStack = recipeEntry.value().craft(recipeInput, this.world.getRegistryManager());
-            this.currentRecipe = recipeEntry;
             this.output.setLastRecipe(recipeEntry);
             this.output.setStack(0, itemStack);
         } else {
-            this.currentRecipe = null;
             this.output.setLastRecipe(null);
             this.output.setStack(0, ItemStack.EMPTY);
         }
