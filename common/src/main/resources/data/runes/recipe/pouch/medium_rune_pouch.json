@@ -14,15 +14,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "W": {
-      "tag": "minecraft:wool"
-    },
-    "S": {
-      "item": "minecraft:string"
-    },
-    "X": {
-      "item": "minecraft:phantom_membrane"
-    }
+    "W": "#minecraft:wool",
+    "S": "minecraft:string",
+    "X": "minecraft:phantom_membrane"
   },
   "pattern": [
     " S ",

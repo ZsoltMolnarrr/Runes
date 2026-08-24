@@ -14,15 +14,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "W": {
-      "tag": "minecraft:wool"
-    },
-    "S": {
-      "item": "minecraft:string"
-    },
-    "X": {
-      "item": "minecraft:nether_star"
-    }
+    "W": "#minecraft:wool",
+    "S": "minecraft:string",
+    "X": "minecraft:nether_star"
   },
   "pattern": [
     " S ",

@@ -14,15 +14,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "W": {
-      "tag": "minecraft:wool"
-    },
-    "S": {
-      "item": "minecraft:string"
-    },
-    "X": {
-      "item": "minecraft:ink_sac"
-    }
+    "W": "#minecraft:wool",
+    "S": "minecraft:string",
+    "X": "minecraft:ink_sac"
   },
   "pattern": [
     " S ",

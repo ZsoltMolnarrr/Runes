@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "tag": "runes:fancy_stone_materials"
-    },
-    "G": {
-      "item": "minecraft:gold_ingot"
-    }
+    "#": "#runes:fancy_stone_materials",
+    "G": "minecraft:gold_ingot"
   },
   "pattern": [
     "G#G",
