@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroups;
 import net.runes.RunesMod;
 import net.runes.api.RuneItems;
 import net.runes.crafting.RuneCraftingBlock;
-import net.runes.crafting.RunePouches;
+import net.runes.crafting.BundleApiCompat;
 
 public final class FabricMod implements ModInitializer {
     @Override
@@ -18,9 +18,7 @@ public final class FabricMod implements ModInitializer {
         RunesMod.registerScreenHandler();
         RunesMod.registerBlocks();
         RunesMod.registerItems();
-        if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
-            RunePouches.register();
-        }
+        BundleApiCompat.register(() -> FabricLoader.getInstance().isModLoaded(BundleApiCompat.MOD_ID));
 
         // Creative-tab placement — Fabric API (loader-specific; NeoForge uses BuildCreativeModeTabContentsEvent).
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content ->
@@ -29,14 +27,9 @@ public final class FabricMod implements ModInitializer {
             for (var entry : RuneItems.entries) {
                 content.add(entry.item());
             }
-            // Gate BEFORE touching RunePouches: reading the static field forces the JVM to
-            // link/verify RunePouches, whose factory references BundleAPI's CustomBundleItem.
-            // Without this guard that verification fails with NoClassDefFoundError when
-            // BundleAPI is absent — the empty `entries` list never even gets iterated.
-            if (FabricLoader.getInstance().isModLoaded("bundleapi")) {
-                for (var entry : RunePouches.entries) {
-                    content.add(entry.item());
-                }
+            // RunePouches is reached reflectively only: it may not even be compiled in (see BundleApiCompat).
+            for (var item : BundleApiCompat.pouchItems(() -> FabricLoader.getInstance().isModLoaded(BundleApiCompat.MOD_ID))) {
+                content.add(item);
             }
         });
     }

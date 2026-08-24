@@ -18,11 +18,8 @@ public class RuneCrafting {
     public static RecipeSerializer<RuneCraftingRecipe> RECIPE_SERIALIZER;
 
     public static void registerRecipe() {
-        RECIPE_TYPE = Registry.register(Registries.RECIPE_TYPE, ID, new RecipeType<RuneCraftingRecipe>() {
-            public String toString() {
-                return NAME;
-            }
-        });
+        // Must be the same instance RuneCraftingRecipe#getType() returns: 1.21.2+ groups recipes by that object.
+        RECIPE_TYPE = Registry.register(Registries.RECIPE_TYPE, ID, RuneCraftingRecipe.TYPE);
         RECIPE_SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, ID, new RuneCraftingRecipe.Serializer());
     }
 }

@@ -1,9 +1,9 @@
 package net.runes.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.runes.client.RuneCraftingScreen;
 import net.runes.client.RunesClientMod;
 import net.runes.crafting.RuneCraftingBlock;
@@ -18,6 +18,6 @@ public final class FabricClientMod implements ClientModInitializer {
         HandledScreens.register(RuneCraftingScreenHandler.HANDLER_TYPE, RuneCraftingScreen::new);
 
         // Fabric-specific render layer registration
-        BlockRenderLayerMap.INSTANCE.putBlock(RuneCraftingBlock.INSTANCE, RenderLayer.getCutout());
+        BlockRenderLayerMap.putBlock(RuneCraftingBlock.INSTANCE, BlockRenderLayer.CUTOUT);
     }
 }

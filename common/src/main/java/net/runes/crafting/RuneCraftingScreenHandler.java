@@ -12,11 +12,13 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.ForgingSlotsManager;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 // Mostly copied from SmithingScreenHandler
 public class RuneCraftingScreenHandler extends ForgingScreenHandler {
@@ -24,7 +26,6 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     private final World world;
     @Nullable
     private RecipeEntry<RuneCraftingRecipe> currentRecipe;
-    private final List<RecipeEntry<RuneCraftingRecipe>> recipes;
 
     public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -35,17 +36,16 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     }
 
     public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(HANDLER_TYPE, syncId, playerInventory, context);
-        this.world = playerInventory.player.getWorld();
-        this.recipes = this.world.getRecipeManager().listAllOfType(RuneCraftingRecipe.TYPE);
+        super(HANDLER_TYPE, syncId, playerInventory, context, createForgingSlotsManager());
+        this.world = playerInventory.player.getEntityWorld();
     }
 
-    protected ForgingSlotsManager getForgingSlotsManager() {
-        return ForgingSlotsManager.create().input(0, 27, 47, (stack) -> {
-            return true;
-        }).input(1, 76, 47, (stack) -> {
-            return true;
-        }).output(2, 134, 47).build();
+    private static ForgingSlotsManager createForgingSlotsManager() {
+        return ForgingSlotsManager.builder()
+                .input(0, 27, 47, stack -> true)
+                .input(1, 76, 47, stack -> true)
+                .output(2, 134, 47)
+                .build();
     }
 
     protected boolean canUse(BlockState state) {
@@ -61,7 +61,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
+        stack.onCraftByPlayer(player, stack.getCount());
         this.output.unlockLastRecipe(player, this.getInputStacks());
         this.decrementStack(0);
         this.decrementStack(1);
@@ -71,7 +71,8 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
 //        }
         var runeCrafter = (RuneCrafter)player;
         if (runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
-            world.playSound(player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1, true);
+            // Source = the crafter: server broadcasts to everyone else, the client plays it locally for the crafter.
+            world.playSound(player, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1);
             runeCrafter.onPlayedRuneCraftingSound(player.age);
         }
     }
@@ -82,42 +83,33 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
 
     private void decrementStack(int slot) {
         ItemStack itemStack = this.input.getStack(slot);
-        itemStack.decrement(1);
-        this.input.setStack(slot, itemStack);
+        if (!itemStack.isEmpty()) {
+            itemStack.decrement(1);
+            this.input.setStack(slot, itemStack);
+        }
     }
 
     public void updateResult() {
         var recipeInput = this.createRecipeInput();
-        var result = this.world.getRecipeManager().getFirstMatch(RuneCraftingRecipe.TYPE, recipeInput, this.world);
+        // 1.21.2+: recipes are server-only; the client just receives the result slot.
+        Optional<RecipeEntry<RuneCraftingRecipe>> result;
+        if (this.world instanceof ServerWorld serverWorld) {
+            result = serverWorld.getRecipeManager().getFirstMatch(RuneCraftingRecipe.TYPE, recipeInput, serverWorld);
+        } else {
+            result = Optional.empty();
+        }
         if (result.isPresent()) {
-
             var recipeEntry = result.get();
             ItemStack itemStack = recipeEntry.value().craft(recipeInput, this.world.getRegistryManager());
-            // if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.currentRecipe = recipeEntry;
-                this.output.setLastRecipe(recipeEntry);
-                this.output.setStack(0, itemStack);
-            //}
+            this.currentRecipe = recipeEntry;
+            this.output.setLastRecipe(recipeEntry);
+            this.output.setStack(0, itemStack);
         } else {
+            this.currentRecipe = null;
+            this.output.setLastRecipe(null);
             this.output.setStack(0, ItemStack.EMPTY);
         }
-
-//        List<RuneCraftingRecipe> list = this.world.getRecipeManager().getAllMatches(RuneCraftingRecipe.TYPE, recipeInput, this.world);
-//        if (list.isEmpty()) {
-//            this.output.setStack(0, ItemStack.EMPTY);
-//        } else {
-//            this.currentRecipe = (RuneCraftingRecipe)list.get(0);
-//            ItemStack itemStack = this.currentRecipe.craft(this.input, this.world.getRegistryManager());
-//            this.output.setLastRecipe(this.currentRecipe);
-//            this.output.setStack(0, itemStack);
-//        }
     }
-
-//    protected boolean isUsableAsAddition(ItemStack stack) {
-//        return this.recipes.stream().anyMatch((recipe) -> {
-//            return recipe.testAddition(stack);
-//        });
-//    }
 
     public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
         return slot.inventory != this.output && super.canInsertIntoSlot(stack, slot);

@@ -6,15 +6,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategories;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Optional;
 
 public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
     final Ingredient base;
     final Ingredient addition;
     final ItemStack result;
+    @Nullable
+    private IngredientPlacement ingredientPlacement;
 
     public RuneCraftingRecipe(Ingredient base, Ingredient addition, ItemStack result) {
         this.base = base;
@@ -45,31 +51,26 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         return itemStack;
     }
 
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return this.result;
-    }
-
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
-    }
-
-    public ItemStack createIcon() {
-        return new ItemStack(RuneCraftingBlock.INSTANCE);
-    }
-
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<RuneCraftingRecipe> getSerializer() {
         return RuneCrafting.RECIPE_SERIALIZER;
     }
 
-    public RecipeType<?> getType() {
+    public RecipeType<RuneCraftingRecipe> getType() {
         return TYPE;
     }
 
-    public boolean isEmpty() {
-        return Stream.of(this.base, this.addition).anyMatch((ingredient) -> {
-            return ingredient.getMatchingStacks().length == 0;
-        });
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        if (this.ingredientPlacement == null) {
+            this.ingredientPlacement = IngredientPlacement.forMultipleSlots(List.of(Optional.of(this.base), Optional.of(this.addition)));
+        }
+        return this.ingredientPlacement;
+    }
+
+    /** Never shown in the recipe book (no {@link #getDisplays()}); the smithing category is the closest fit. */
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return RecipeBookCategories.SMITHING;
     }
 
     public static final String NAME = "crafting";
@@ -83,14 +84,17 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
     public static class Serializer implements RecipeSerializer<RuneCraftingRecipe> {
         private static final MapCodec<RuneCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 instance -> instance.group(
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
+                                Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
+                                Ingredient.CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
                                 ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
                         )
                         .apply(instance, RuneCraftingRecipe::new)
         );
-        public static final PacketCodec<RegistryByteBuf, RuneCraftingRecipe> PACKET_CODEC = PacketCodec.ofStatic(
-                RuneCraftingRecipe.Serializer::write, RuneCraftingRecipe.Serializer::read
+        public static final PacketCodec<RegistryByteBuf, RuneCraftingRecipe> PACKET_CODEC = PacketCodec.tuple(
+                Ingredient.PACKET_CODEC, recipe -> recipe.base,
+                Ingredient.PACKET_CODEC, recipe -> recipe.addition,
+                ItemStack.PACKET_CODEC, recipe -> recipe.result,
+                RuneCraftingRecipe::new
         );
 
         @Override
@@ -101,19 +105,6 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         @Override
         public PacketCodec<RegistryByteBuf, RuneCraftingRecipe> packetCodec() {
             return PACKET_CODEC;
-        }
-
-        private static RuneCraftingRecipe read(RegistryByteBuf buf) {
-            Ingredient ingredient2 = Ingredient.PACKET_CODEC.decode(buf);
-            Ingredient ingredient3 = Ingredient.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
-            return new RuneCraftingRecipe(ingredient2, ingredient3, itemStack);
-        }
-
-        private static void write(RegistryByteBuf buf, RuneCraftingRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf, recipe.base);
-            Ingredient.PACKET_CODEC.encode(buf, recipe.addition);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
         }
     }
 }

@@ -14,7 +14,7 @@ public record RuneCraftingRecipeInput(ItemStack base, ItemStack addition) implem
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return 2;
     }
 

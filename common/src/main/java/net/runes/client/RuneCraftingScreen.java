@@ -1,6 +1,5 @@
 package net.runes.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -20,11 +19,6 @@ public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler>
         super(handler, playerInventory, title, TEXTURE);
         this.titleX = 60;
         this.titleY = 18;
-    }
-
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-        RenderSystem.disableBlend();
-        super.drawForeground(context, mouseX, mouseY);
     }
 
     protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
