@@ -17,7 +17,7 @@ repositories {
     mavenLocal()
 }
 
-// Optional integrations without a 1.21.11 build yet — see gradle.properties for the rationale.
+// Optional integrations — see gradle.properties for the gating rationale.
 def bundleApiEnabled = rootProject.enable_bundle_api.toBoolean()
 def emiEnabled = rootProject.enable_emi.toBoolean()
 
@@ -28,7 +28,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     if (bundleApiEnabled) {
-        modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
+        modImplementation "com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}"
     }
 
     // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral

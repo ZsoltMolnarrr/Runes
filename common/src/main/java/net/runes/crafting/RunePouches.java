@@ -8,6 +8,8 @@ import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -25,7 +27,9 @@ public class RunePouches {
     public static final List<Entry> entries = new ArrayList<>();
     public record Entry(Identifier id, int capacity, Item item) {  }
     public static Entry entry(String name, int capacity, @Nullable Rarity rarity) {
+        var id = Identifier.of(RunesMod.ID, name);
         var settings = new Item.Settings()
+                .registryKey(RegistryKey.of(RegistryKeys.ITEM, id))
                 .maxCount(1)
                 .component(
                         DataComponentTypes.LORE,
@@ -42,7 +46,6 @@ public class RunePouches {
             settings.rarity(rarity);
         }
         var bundle = new CustomBundleItem(RUNES, settings);
-        var id = Identifier.of(RunesMod.ID, name);
         var entry = new Entry(id, capacity, bundle);
         entries.add(entry);
         return entry;

@@ -52,9 +52,9 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    // Bundle API (JiJ) — gated, no 1.21.11 build yet (see gradle.properties).
+    // Bundle API (JiJ) — our mavenLocal fork; gated via enable_bundle_api (see gradle.properties).
     if (rootProject.enable_bundle_api.toBoolean()) {
-        include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
+        include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
     }
 
     // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
