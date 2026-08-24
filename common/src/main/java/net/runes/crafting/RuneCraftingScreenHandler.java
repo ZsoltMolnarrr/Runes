@@ -71,8 +71,9 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
 //        }
         var runeCrafter = (RuneCrafter)player;
         if (runeCrafter.shouldPlayRuneCraftingSound(player.age)) {
-            // Source = the crafter: server broadcasts to everyone else, the client plays it locally for the crafter.
-            world.playSound(player, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1);
+            // Runs server-side only (recipes are not synced to the client since 1.21.2, so `canTakeOutput` is false there).
+            // Source must be null: a non-null source is the "except" player of the broadcast and would never hear it.
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundCategory.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1);
             runeCrafter.onPlayedRuneCraftingSound(player.age);
         }
     }
