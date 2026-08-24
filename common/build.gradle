@@ -17,17 +17,35 @@ repositories {
     mavenLocal()
 }
 
+// Optional integrations without a 1.21.11 build yet — see gradle.properties for the rationale.
+def bundleApiEnabled = rootProject.enable_bundle_api.toBoolean()
+def emiEnabled = rootProject.enable_emi.toBoolean()
+
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
-//    modImplementation("com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}")
+    if (bundleApiEnabled) {
+        modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
+    }
 
     // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral
     // subset EMI publishes for Architectury common modules. Compile-only: `net.runes.compat.emi`
     // is only ever class-loaded by EMI itself, so the mod runs fine without EMI present.
-    modCompileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
+    if (emiEnabled) {
+        modCompileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
+    }
+}
+
+sourceSets.main.java {
+    // Keep the integration code in-tree, but out of the compile when its dependency is unavailable.
+    // Callers reach RunePouches only through the reflective `BundleApiCompat` bridge.
+    if (!bundleApiEnabled) {
+        exclude 'net/runes/crafting/RunePouches.java'
+    }
+    if (!emiEnabled) {
+        exclude 'net/runes/compat/emi/**'
+    }
 }

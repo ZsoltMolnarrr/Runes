@@ -17,14 +17,14 @@ logoFile = "icon.png"
 [[dependencies.runes]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1,)"
+versionRange = "[21.11,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.runes]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[1.21.11,)"
 ordering = "NONE"
 side = "BOTH"
 

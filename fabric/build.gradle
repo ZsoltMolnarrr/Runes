@@ -50,13 +50,17 @@ dependencies {
 
     // Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    // Bundle API
-    include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
+    // Bundle API (JiJ) — gated, no 1.21.11 build yet (see gradle.properties).
+    if (rootProject.enable_bundle_api.toBoolean()) {
+        include(modImplementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
+    }
 
     // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
     // NOT bundled and NOT a declared dependency: the plugin lives in `common` and is
-    // compile-only there.
-    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+    // compile-only there. Gated, no 1.21.11 build yet (see gradle.properties).
+    if (rootProject.enable_emi.toBoolean()) {
+        modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+    }
 }
 
 processResources {
@@ -105,7 +109,8 @@ publishMods {
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
-        requires("fabric-api", "bundle-api")
+        requires("fabric-api")
+        if (rootProject.enable_bundle_api.toBoolean()) requires("bundle-api")
     }
 
     modrinth {
@@ -115,7 +120,7 @@ publishMods {
         minecraftVersions.add(project.minecraft_version)
         minecraftVersions.add(project.minecraft_compat_version)
         requires { slug = "fabric-api" }
-        requires { slug = "bundle-api" }
+        if (rootProject.enable_bundle_api.toBoolean()) requires { slug = "bundle-api" }
     }
 
     // Each platform publishes its own GitHub release under a distinct, platform-suffixed
