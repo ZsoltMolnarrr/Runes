@@ -1,10 +1,10 @@
 package net.runes.mixin;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.runes.crafting.RuneCrafter;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public class PlayerEntityMixin implements RuneCrafter {
     private int lastRuneCrafted = 0;
     @Override

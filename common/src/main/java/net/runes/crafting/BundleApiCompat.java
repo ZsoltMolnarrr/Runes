@@ -1,9 +1,8 @@
 package net.runes.crafting;
 
-import net.minecraft.item.Item;
-
 import java.util.List;
 import java.util.function.BooleanSupplier;
+import net.minecraft.world.item.Item;
 
 /**
  * Reflective bridge to {@link RunePouches}, which depends on Bundle API.

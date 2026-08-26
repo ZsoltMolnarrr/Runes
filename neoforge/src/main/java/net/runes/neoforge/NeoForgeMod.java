@@ -1,7 +1,7 @@
 package net.runes.neoforge;
 
-import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -21,34 +21,34 @@ public final class NeoForgeMod {
     }
 
     public static void register(RegisterEvent event) {
-        event.register(RegistryKeys.SOUND_EVENT, reg -> {
+        event.register(Registries.SOUND_EVENT, reg -> {
             RunesMod.registerSounds();
         });
-        event.register(RegistryKeys.RECIPE_TYPE, reg -> {
+        event.register(Registries.RECIPE_TYPE, reg -> {
             RunesMod.registerRecipeType();
         });
-        event.register(RegistryKeys.SCREEN_HANDLER, reg -> {
+        event.register(Registries.MENU, reg -> {
             RunesMod.registerScreenHandler();
         });
-        event.register(RegistryKeys.BLOCK, reg -> {
+        event.register(Registries.BLOCK, reg -> {
             RunesMod.registerBlocks();
         });
-        event.register(RegistryKeys.ITEM, reg -> {
+        event.register(Registries.ITEM, reg -> {
             RunesMod.registerItems();
             BundleApiCompat.register(() -> PlatformUtils.isModLoaded(BundleApiCompat.MOD_ID));
         });
     }
 
     private static void buildTabContents(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().equals(ItemGroups.FUNCTIONAL)) {
-            event.add(RuneCraftingBlock.ITEM);
-        } else if (event.getTabKey().equals(ItemGroups.COMBAT)) {
+        if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
+            event.accept(RuneCraftingBlock.ITEM);
+        } else if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
             for (var entry : RuneItems.entries) {
-                event.add(entry.item());
+                event.accept(entry.item());
             }
             // RunePouches is reached reflectively only: it may not even be compiled in (see BundleApiCompat).
             for (var item : BundleApiCompat.pouchItems(() -> PlatformUtils.isModLoaded(BundleApiCompat.MOD_ID))) {
-                event.add(item);
+                event.accept(item);
             }
         }
     }

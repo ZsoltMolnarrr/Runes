@@ -3,18 +3,18 @@ package net.runes.crafting;
 import com.github.theredbrain.bundleapi.BundleAPI;
 import com.github.theredbrain.bundleapi.component.type.CustomBundleContentsComponent;
 import com.github.theredbrain.bundleapi.item.CustomBundleItem;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LoreComponent;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.ItemLore;
 import net.runes.RunesMod;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,20 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RunePouches {
-    private static final TagKey<Item> RUNES = TagKey.of(Registries.ITEM.getKey(), Identifier.of(RunesMod.ID, "runes"));
+    private static final TagKey<Item> RUNES = TagKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(RunesMod.ID, "runes"));
 
     public static final List<Entry> entries = new ArrayList<>();
     public record Entry(Identifier id, int capacity, Item item) {  }
     public static Entry entry(String name, int capacity, @Nullable Rarity rarity) {
-        var id = Identifier.of(RunesMod.ID, name);
-        var settings = new Item.Settings()
-                .registryKey(RegistryKey.of(RegistryKeys.ITEM, id))
-                .maxCount(1)
+        var id = Identifier.fromNamespaceAndPath(RunesMod.ID, name);
+        var settings = new Item.Properties()
+                .setId(ResourceKey.create(Registries.ITEM, id))
+                .stacksTo(1)
                 .component(
-                        DataComponentTypes.LORE,
-                        new LoreComponent(List.of(
-                                Text.translatable("item.runes.rune_pouch.hint")
-                                        .formatted(Formatting.GRAY)
+                        DataComponents.LORE,
+                        new ItemLore(List.of(
+                                Component.translatable("item.runes.rune_pouch.hint")
+                                        .withStyle(ChatFormatting.GRAY)
                         ))
                 )
                 .component(
@@ -45,7 +45,7 @@ public class RunePouches {
         if (rarity != null) {
             settings.rarity(rarity);
         }
-        var bundle = new CustomBundleItem(RUNES, Text.translatable("item.runes.rune_pouch.empty.description"), settings);
+        var bundle = new CustomBundleItem(RUNES, Component.translatable("item.runes.rune_pouch.empty.description"), settings);
         var entry = new Entry(id, capacity, bundle);
         entries.add(entry);
         return entry;
@@ -57,7 +57,7 @@ public class RunePouches {
         entry("large_rune_pouch", 12, Rarity.UNCOMMON);
 
         for(var entry: entries) {
-            Registry.register(Registries.ITEM, entry.id(), entry.item());
+            Registry.register(BuiltInRegistries.ITEM, entry.id(), entry.item());
         }
         // Creative-tab placement (COMBAT group) is registered per-platform from each loader's entrypoint,
         // iterating RunePouches.entries — no Fabric API ItemGroupEvents in common.

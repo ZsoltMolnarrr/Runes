@@ -2,8 +2,8 @@ package net.runes.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.runes.client.RuneCraftingScreen;
 import net.runes.client.RunesClientMod;
 import net.runes.crafting.RuneCraftingBlock;
@@ -15,9 +15,9 @@ public final class FabricClientMod implements ClientModInitializer {
         RunesClientMod.init();
 
         // Screen registration — Fabric API (loader-specific; NeoForge uses RegisterMenuScreensEvent).
-        HandledScreens.register(RuneCraftingScreenHandler.HANDLER_TYPE, RuneCraftingScreen::new);
+        MenuScreens.register(RuneCraftingScreenHandler.HANDLER_TYPE, RuneCraftingScreen::new);
 
         // Fabric-specific render layer registration
-        BlockRenderLayerMap.putBlock(RuneCraftingBlock.INSTANCE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(RuneCraftingBlock.INSTANCE, ChunkSectionLayer.CUTOUT);
     }
 }

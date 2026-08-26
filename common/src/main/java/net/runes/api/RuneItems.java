@@ -1,9 +1,9 @@
 package net.runes.api;
 
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 import net.runes.RunesMod;
 
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ public class RuneItems {
     static {
         var all = new ArrayList<Entry>();
         for(var type : RuneType.values()) {
-            var id = Identifier.of(RunesMod.ID, type.toString().toLowerCase(Locale.ENGLISH) + "_stone");
-            var item = new Item(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, id)));
+            var id = Identifier.fromNamespaceAndPath(RunesMod.ID, type.toString().toLowerCase(Locale.ENGLISH) + "_stone");
+            var item = new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id)));
             all.add(new Entry(id, type, item));
         }
         entries = all;
