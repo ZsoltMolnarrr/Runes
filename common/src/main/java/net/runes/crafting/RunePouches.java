@@ -45,7 +45,7 @@ public class RunePouches {
         if (rarity != null) {
             settings.rarity(rarity);
         }
-        var bundle = new CustomBundleItem(RUNES, settings);
+        var bundle = new CustomBundleItem(RUNES, Text.translatable("item.runes.rune_pouch.empty.description"), settings);
         var entry = new Entry(id, capacity, bundle);
         entries.add(entry);
         return entry;

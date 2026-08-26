@@ -6,6 +6,7 @@
   "item.runes.small_rune_pouch": "Rune Pouch",
   "item.runes.medium_rune_pouch": "Phantom Rune Pouch",
   "item.runes.large_rune_pouch": "Mystic Rune Pouch",
+  "item.runes.rune_pouch.empty.description": "Can hold mixed stacks of runes",
   "item.runes.rune_pouch.hint": "Provides runes for spell casting, when equipped.",
   "item.runes.arcane_stone": "Arcane Rune",
   "item.runes.fire_stone": "Fire Rune",
