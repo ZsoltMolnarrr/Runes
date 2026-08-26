@@ -18,6 +18,7 @@ public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler>
         this.titleY = 18;
     }
 
+    @Override
     protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
 //        if (this.hasInvalidRecipe()) {
 //            context.drawTexture(TEXTURE, x + 65, y + 46, this.backgroundWidth, 0, 28, 21);

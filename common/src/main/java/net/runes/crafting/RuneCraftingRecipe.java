@@ -5,7 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.IngredientPlacement;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.RegistryWrapper;
@@ -41,20 +45,24 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         return this.result;
     }
 
+    @Override
     public boolean matches(RuneCraftingRecipeInput input, World world) {
         return this.base.test(input.getStackInSlot(0)) && this.addition.test(input.getStackInSlot(1));
     }
 
+    @Override
     public ItemStack craft(RuneCraftingRecipeInput input, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = input.base().copyComponentsToNewStack(this.result.getItem(), this.result.getCount());
         itemStack.applyUnvalidatedChanges(this.result.getComponentChanges());
         return itemStack;
     }
 
+    @Override
     public RecipeSerializer<RuneCraftingRecipe> getSerializer() {
         return RuneCrafting.RECIPE_SERIALIZER;
     }
 
+    @Override
     public RecipeType<RuneCraftingRecipe> getType() {
         return TYPE;
     }

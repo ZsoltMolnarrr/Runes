@@ -1,6 +1,10 @@
 package net.runes.crafting;
 
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CraftingTableBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -55,12 +59,14 @@ public class RuneCraftingBlock extends CraftingTableBlock {
         super(settings);
     }
 
+    @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> {
             return new RuneCraftingScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos));
         }, SCREEN_TITLE);
     }
 
+    @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient()) {
             return ActionResult.SUCCESS;

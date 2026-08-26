@@ -45,6 +45,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
                 .build();
     }
 
+    @Override
     protected boolean canUse(BlockState state) {
         return state.isOf(RuneCraftingBlock.INSTANCE);
     }
@@ -53,6 +54,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         return new RuneCraftingRecipeInput(this.input.getStack(0), this.input.getStack(1));
     }
 
+    @Override
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
         stack.onCraftByPlayer(player, stack.getCount());
         this.output.unlockLastRecipe(player, this.getInputStacks());
@@ -83,6 +85,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         }
     }
 
+    @Override
     public void updateResult() {
         var recipeInput = this.createRecipeInput();
         // 1.21.2+: recipes are server-only; the client just receives the result slot.
@@ -103,6 +106,7 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
         }
     }
 
+    @Override
     public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
         return slot.inventory != this.output && super.canInsertIntoSlot(stack, slot);
     }
