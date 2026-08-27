@@ -1,7 +1,7 @@
 package net.runes.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.runes.RunesMod;
@@ -21,9 +21,9 @@ public final class FabricMod implements ModInitializer {
         BundleApiCompat.register(() -> FabricLoader.getInstance().isModLoaded(BundleApiCompat.MOD_ID));
 
         // Creative-tab placement — Fabric API (loader-specific; NeoForge uses BuildCreativeModeTabContentsEvent).
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(content ->
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(content ->
                 content.accept(RuneCraftingBlock.ITEM));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(content -> {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(content -> {
             for (var entry : RuneItems.entries) {
                 content.accept(entry.item());
             }

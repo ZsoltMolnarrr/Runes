@@ -1,6 +1,6 @@
 package net.runes.client;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -19,7 +19,7 @@ public class RuneCraftingScreen extends ItemCombinerScreen<RuneCraftingScreenHan
     }
 
     @Override
-    protected void renderErrorIcon(GuiGraphics context, int x, int y) {
+    protected void extractErrorIcon(GuiGraphicsExtractor context, int x, int y) {
 //        if (this.hasInvalidRecipe()) {
 //            context.drawTexture(TEXTURE, x + 65, y + 46, this.backgroundWidth, 0, 28, 21);
 //        }

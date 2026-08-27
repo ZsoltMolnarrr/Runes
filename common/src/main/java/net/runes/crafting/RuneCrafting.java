@@ -20,6 +20,6 @@ public class RuneCrafting {
     public static void registerRecipe() {
         // Must be the same instance RuneCraftingRecipe#getType() returns: 1.21.2+ groups recipes by that object.
         RECIPE_TYPE = Registry.register(BuiltInRegistries.RECIPE_TYPE, ID, RuneCraftingRecipe.TYPE);
-        RECIPE_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ID, new RuneCraftingRecipe.Serializer());
+        RECIPE_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ID, RuneCraftingRecipe.SERIALIZER);
     }
 }

@@ -25,7 +25,7 @@ public class RuneCraftingEmiRecipe implements EmiRecipe {
         this.id = id;
         this.base = EmiIngredient.of(recipe.base());
         this.addition = EmiIngredient.of(recipe.addition());
-        this.result = EmiStack.of(recipe.result());
+        this.result = EmiStack.of(recipe.result().create());
     }
 
     @Override

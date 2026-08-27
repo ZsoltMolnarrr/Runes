@@ -67,7 +67,7 @@ public class RuneCraftingScreenHandler extends ItemCombinerMenu {
         // Like vanilla, `onTakeOutput` also runs on the client (prediction); only the server broadcasts the sound.
         if (!world.isClientSide() && runeCrafter.shouldPlayRuneCraftingSound(player.tickCount)) {
             // Source must be null: a non-null source is the "except" player of the broadcast and would never hear it.
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundSource.BLOCKS, world.random.nextFloat() * 0.1F + 0.9F, 1);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), RuneCrafting.SOUND, SoundSource.BLOCKS, world.getRandom().nextFloat() * 0.1F + 0.9F, 1);
             runeCrafter.onPlayedRuneCraftingSound(player.tickCount);
         }
     }
@@ -96,7 +96,7 @@ public class RuneCraftingScreenHandler extends ItemCombinerMenu {
         }
         if (result.isPresent()) {
             var recipeEntry = result.get();
-            ItemStack itemStack = recipeEntry.value().assemble(recipeInput, this.world.registryAccess());
+            ItemStack itemStack = recipeEntry.value().assemble(recipeInput);
             this.resultSlots.setRecipeUsed(recipeEntry);
             this.resultSlots.setItem(0, itemStack);
         } else {
