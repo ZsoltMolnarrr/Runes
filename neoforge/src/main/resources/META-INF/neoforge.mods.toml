@@ -17,7 +17,7 @@ logoFile = "icon.png"
 [[dependencies.runes]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.11,)"
+versionRange = "[26.1,)"
 ordering = "NONE"
 side = "BOTH"
 
