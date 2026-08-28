@@ -1,5 +1,6 @@
 # 1.3.2
 
+- Minecraft 26.1.2 support (Java 25).
 - Added rune crafting recipe integration
 
 # 1.3.1
