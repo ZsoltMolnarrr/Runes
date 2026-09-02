@@ -43,6 +43,14 @@ repositories {
         name = 'TerraformersMC'
         url = 'https://maven.terraformersmc.com/releases'
     }
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com/'
+    }
+    maven {
+        name = 'shedaniel'
+        url = 'https://maven.shedaniel.me'
+    }
     mavenLocal()
 }
 
@@ -57,12 +65,21 @@ dependencies {
         include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
     }
 
-    // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
-    // NOT bundled and NOT a declared dependency: the plugin lives in `common` and is
-    // compile-only there. Gated, no 1.21.11 build yet (see gradle.properties).
-    if (rootProject.enable_emi.toBoolean()) {
-        modLocalRuntime "dev.emi:emi-neoforge:${project.emi_version}"
-    }
+    // JEI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin. The plugin itself
+    // lives in `common`; JEI's NeoForge scan finds it by the @JeiPlugin annotation, so no stub is needed.
+    modLocalRuntime "mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${project.jei_version}"
+
+    // REI (recipe viewer) — the plugin classes live in `common`; this module only adds the two
+    // annotated stubs REI's NeoForge annotation scan looks for, so it needs the NeoForge API jar.
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.rei_version}"
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-neoforge:${project.rei_version}"
+
+    // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
+    // Dev runtime only, so `runClient` can verify the plugin. NOT bundled and NOT a declared
+    // dependency: the plugin lives in `common` and is compile-only there.
+    //if (rootProject.enable_emi.toBoolean()) {
+    //    modLocalRuntime "dev.emi:emi-neoforge:${project.emi_version}"
+    //}
 }
 
 processResources {

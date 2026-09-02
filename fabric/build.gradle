@@ -39,6 +39,14 @@ repositories {
         name = 'TerraformersMC'
         url = 'https://maven.terraformersmc.com/releases'
     }
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com/'
+    }
+    maven {
+        name = 'shedaniel'
+        url = 'https://maven.shedaniel.me'
+    }
     mavenLocal()
 }
 
@@ -55,12 +63,19 @@ dependencies {
         include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
     }
 
-    // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
-    // NOT bundled and NOT a declared dependency: the plugin lives in `common` and is
-    // compile-only there. Gated, no 1.21.11 build yet (see gradle.properties).
-    if (rootProject.enable_emi.toBoolean()) {
-        modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
-    }
+    // JEI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin.
+    modLocalRuntime "mezz.jei:jei-${rootProject.minecraft_version}-fabric:${project.jei_version}"
+
+    // REI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin. NOT bundled and
+    // NOT a declared dependency: the plugin lives in `common` and is compile-only there.
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+
+    // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
+    // Dev runtime only, so `runClient` can verify the plugin. NOT bundled and NOT a declared
+    // dependency: the plugin lives in `common` and is compile-only there.
+    //if (rootProject.enable_emi.toBoolean()) {
+    //    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+    //}
 }
 
 processResources {
