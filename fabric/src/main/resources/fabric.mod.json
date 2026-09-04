@@ -19,10 +19,21 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.runes.fabric.FabricMod"
+      "net.runes.fabric.FabricMod",
+      "net.runes.fabric.compat.jei.JeiRecipeSync"
     ],
     "client": [
-      "net.runes.fabric.client.FabricClientMod"
+      "net.runes.fabric.client.FabricClientMod",
+      "net.runes.fabric.compat.jei.JeiRecipeSourceClient"
+    ],
+    "jei_mod_plugin": [
+      "net.runes.compat.jei.RunesJeiPlugin"
+    ],
+    "rei_common": [
+      "net.runes.compat.rei.RunesReiCommonPlugin"
+    ],
+    "rei_client": [
+      "net.runes.compat.rei.RunesReiClientPlugin"
     ]
   },
   "mixins": [
