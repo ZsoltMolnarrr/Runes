@@ -14,12 +14,20 @@ repositories {
         name = 'TerraformersMC'
         url = 'https://maven.terraformersmc.com/releases'
     }
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com/'
+    }
+    maven {
+        name = 'shedaniel'
+        url = 'https://maven.shedaniel.me'
+    }
     mavenLocal()
 }
 
 // Optional integrations — see gradle.properties for the gating rationale.
 def bundleApiEnabled = rootProject.enable_bundle_api.toBoolean()
-def emiEnabled = rootProject.enable_emi.toBoolean()
+//def emiEnabled = rootProject.enable_emi.toBoolean()
 
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
@@ -31,12 +39,23 @@ dependencies {
         implementation "com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}"
     }
 
-    // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral
-    // subset EMI publishes for Architectury common modules. Compile-only: `net.runes.compat.emi`
-    // is only ever class-loaded by EMI itself, so the mod runs fine without EMI present.
-    if (emiEnabled) {
-        compileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
-    }
+    // JEI (recipe viewer) — `common-api` is the loader-neutral API. This tree is Mojmap and so is the
+    // artifact (JEI publishes no `-intermediary` variant for 26.x), so it needs no Loom remap.
+    // Compile-only: only ever class-loaded by JEI itself.
+    compileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${project.jei_version}"
+
+    // REI (recipe viewer) — `RoughlyEnoughItems-api` is the loader-neutral API, Mojmap-named on 26.x,
+    // so it needs no Loom remap either. Compile-only: these classes are only ever loaded by REI, so
+    // the mod runs fine without it.
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
+
+    // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
+    // The `xplat-intermediary` `api` artifact is the loader-neutral subset EMI publishes for
+    // Architectury common modules. Compile-only: `net.runes.compat.emi` is only ever class-loaded
+    // by EMI itself, so the mod runs fine without EMI present.
+    //if (emiEnabled) {
+    //    compileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
+    //}
 }
 
 sourceSets.main.java {
@@ -45,7 +64,10 @@ sourceSets.main.java {
     if (!bundleApiEnabled) {
         exclude 'net/runes/crafting/RunePouches.java'
     }
-    if (!emiEnabled) {
-        exclude 'net/runes/compat/emi/**'
-    }
+    // EMI is parked (see gradle.properties): the plugin sources stay in-tree but never compile.
+    // Restore the gate below when re-enabling.
+    exclude 'net/runes/compat/emi/**'
+    //if (!emiEnabled) {
+    //    exclude 'net/runes/compat/emi/**'
+    //}
 }
