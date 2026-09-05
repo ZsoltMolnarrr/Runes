@@ -36,7 +36,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     if (bundleApiEnabled) {
-        implementation "com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}"
+        implementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
     }
 
     // JEI (recipe viewer) — `common-api` is the loader-neutral API. This tree is Mojmap and so is the
