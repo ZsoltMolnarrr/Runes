@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "runes:rune_crafting/base/stone"
+    },
+    {
+      "tag": "runes:rune_crafting/reagent/arcane_small"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "runes:arcane_stone"
+  }
+}

@@ -5,9 +5,17 @@ plugins {
 
 def platform = project.name;
 
+loom {
+    forge {
+        // THIS is the Forge mixin wiring: Loom writes `MixinConfigs: runes.mixins.json` into the jar
+        // MANIFEST.MF, which is where Forge 47 reads mixin configs from (NOT from `mods.toml`).
+        mixinConfig "runes.mixins.json"
+    }
+}
+
 architectury {
     platformSetupLoomIde()
-    fabric()
+    forge()
 }
 
 configurations {
@@ -17,7 +25,7 @@ configurations {
     }
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+    developmentForge.extendsFrom common
 
     // Files in this configuration will be bundled into your mod using the Shadow plugin.
     // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
@@ -43,13 +51,11 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    forge "net.minecraftforge:forge:$rootProject.forge_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
-    // Fabric API
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     // Bundle API from mavenLocal (published by its 1.20.1-modern port).
     include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${rootProject.bundle_api_version}"))
 
@@ -57,13 +63,19 @@ dependencies {
     // NOT bundled and NOT a declared dependency: the plugin lives in `common` and is
     // compile-only there.
     modLocalRuntime "dev.emi:emi-${platform}:${rootProject.emi_version}"
+
+    // Forge 47 ships plain Mixin 0.8.5; the ecosystem's mixins need MixinExtras and Loom does not
+    // load nested jars of classpath mods. `localRuntime` keeps it out of the published POM.
+    // Must be 0.5.5+ — 0.4.1 crashes `Bootstrap.initialize` on sponge-mixin 0.17 `@Redirect` arrays.
+    localRuntime("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}")
 }
 
 processResources {
     inputs.property 'version', project.version
 
-    filesMatching("fabric.mod.json") {
-        expand version: inputs.properties.version
+    filesMatching('META-INF/mods.toml') {
+        // Forge rejects the `+<mc>` build metadata in a Maven version range, so publish the bare mod version.
+        expand version: inputs.properties.version.toString().split('\\+')[0]
     }
 }
 
@@ -95,7 +107,7 @@ publishMods {
             : me.modmuss50.mpp.ReleaseType.BETA
     version = "${project.version}-${platform}"   // per-loader suffix → unique Modrinth version
     displayName = "${project.version}"
-    modLoaders.add("fabric")
+    modLoaders.add("forge")
 
     curseforge {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
@@ -104,7 +116,7 @@ publishMods {
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
-        requires("fabric-api", "bundle-api")
+        requires("bundle-api")
     }
 
     modrinth {
@@ -112,12 +124,11 @@ publishMods {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        requires { slug = "fabric-api" }
         requires { slug = "bundle-api" }
     }
 
     // Each platform publishes its own GitHub release under a distinct, platform-suffixed
-    // tag (e.g. `1.0.0+1.20.1-fabric`), so the two publish jobs don't collide.
+    // tag (e.g. `1.0.0+1.20.1-forge`), so the two publish jobs don't collide.
     github {
         repository = providers.environmentVariable("GH_OWNER")
                 .zip(providers.environmentVariable("GH_REPO")) { owner, repo -> "$owner/$repo" }

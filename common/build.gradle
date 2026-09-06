@@ -2,6 +2,10 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+// Dummy platform for the common compile — `common` only needs the API surface, and the Fabric
+// artifact of each library is the one Loom maps into named (Yarn) space for this module.
+def platform = "fabric";
+
 repositories {
     maven {
         name = 'Modrinth'
@@ -22,12 +26,14 @@ dependencies {
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    modImplementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
-//    modImplementation("com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}")
+    // No Fabric API in common: there is no Forgified Fabric API on the 1.20.1 line, so loader API
+    // usage (item groups, render layers) stays in the platform modules.
+
+    // Bundle API from mavenLocal (published by its 1.20.1-modern port).
+    modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${rootProject.bundle_api_version}")
 
     // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral
     // subset EMI publishes for Architectury common modules. Compile-only: `net.runes.compat.emi`
     // is only ever class-loaded by EMI itself, so the mod runs fine without EMI present.
-    modCompileOnly "dev.emi:emi-xplat-intermediary:${project.emi_version}:api"
+    modCompileOnly "dev.emi:emi-xplat-intermediary:${rootProject.emi_version}:api"
 }

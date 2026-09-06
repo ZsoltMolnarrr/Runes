@@ -3,10 +3,9 @@ package net.runes.crafting;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -20,11 +19,16 @@ import java.util.List;
 
 // Mostly copied from SmithingScreenHandler
 public class RuneCraftingScreenHandler extends ForgingScreenHandler {
-    public static final ScreenHandlerType<RuneCraftingScreenHandler> HANDLER_TYPE = new ScreenHandlerType(RuneCraftingScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+    /// Platform seam. On 1.20.1 the `ScreenHandlerType` constructor (and its `Factory` interface) are
+    /// PRIVATE in vanilla — Fabric API widens them with an access widener, and Forge exposes
+    /// `IForgeMenuType.create`. `common` has no Fabric API on this line (no Forgified Fabric API), so
+    /// each platform entrypoint builds the type and assigns it here BEFORE
+    /// `RunesMod.registerScreenHandler()` runs.
+    public static ScreenHandlerType<RuneCraftingScreenHandler> HANDLER_TYPE;
     private final World world;
     @Nullable
-    private RecipeEntry<RuneCraftingRecipe> currentRecipe;
-    private final List<RecipeEntry<RuneCraftingRecipe>> recipes;
+    private RuneCraftingRecipe currentRecipe;
+    private final List<RuneCraftingRecipe> recipes;
 
     public RuneCraftingScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -53,15 +57,11 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     }
 
     protected boolean canTakeOutput(PlayerEntity player, boolean present) {
-        return this.currentRecipe != null && this.currentRecipe.value().matches(this.createRecipeInput(), this.world);
-    }
-
-    private RuneCraftingRecipeInput createRecipeInput() {
-        return new RuneCraftingRecipeInput(this.input.getStack(0), this.input.getStack(1));
+        return this.currentRecipe != null && this.currentRecipe.matches(this.input, this.world);
     }
 
     protected void onTakeOutput(PlayerEntity player, ItemStack stack) {
-        stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
+        stack.onCraft(player.getWorld(), player, stack.getCount());
         this.output.unlockLastRecipe(player, this.getInputStacks());
         this.decrementStack(0);
         this.decrementStack(1);
@@ -87,30 +87,18 @@ public class RuneCraftingScreenHandler extends ForgingScreenHandler {
     }
 
     public void updateResult() {
-        var recipeInput = this.createRecipeInput();
+        // 1.20.1: the forging inventory IS the recipe input (no `RecipeInput` record).
+        Inventory recipeInput = this.input;
         var result = this.world.getRecipeManager().getFirstMatch(RuneCraftingRecipe.TYPE, recipeInput, this.world);
         if (result.isPresent()) {
-
-            var recipeEntry = result.get();
-            ItemStack itemStack = recipeEntry.value().craft(recipeInput, this.world.getRegistryManager());
-            // if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.currentRecipe = recipeEntry;
-                this.output.setLastRecipe(recipeEntry);
-                this.output.setStack(0, itemStack);
-            //}
+            var recipe = result.get();
+            ItemStack itemStack = recipe.craft(recipeInput, this.world.getRegistryManager());
+            this.currentRecipe = recipe;
+            this.output.setLastRecipe(recipe);
+            this.output.setStack(0, itemStack);
         } else {
             this.output.setStack(0, ItemStack.EMPTY);
         }
-
-//        List<RuneCraftingRecipe> list = this.world.getRecipeManager().getAllMatches(RuneCraftingRecipe.TYPE, recipeInput, this.world);
-//        if (list.isEmpty()) {
-//            this.output.setStack(0, ItemStack.EMPTY);
-//        } else {
-//            this.currentRecipe = (RuneCraftingRecipe)list.get(0);
-//            ItemStack itemStack = this.currentRecipe.craft(this.input, this.world.getRegistryManager());
-//            this.output.setLastRecipe(this.currentRecipe);
-//            this.output.setStack(0, itemStack);
-//        }
     }
 
 //    protected boolean isUsableAsAddition(ItemStack stack) {

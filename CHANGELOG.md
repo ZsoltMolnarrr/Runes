@@ -1,3 +1,7 @@
+# 1.3.2.001
+
+- Ported to Minecraft 1.20.1 (Fabric + Forge 47)
+
 # 1.3.2
 
 - Added rune crafting recipe integration

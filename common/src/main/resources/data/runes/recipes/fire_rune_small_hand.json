@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "runes:rune_crafting/base/stone"
+    },
+    {
+      "tag": "runes:rune_crafting/reagent/fire_small"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "runes:fire_stone"
+  }
+}

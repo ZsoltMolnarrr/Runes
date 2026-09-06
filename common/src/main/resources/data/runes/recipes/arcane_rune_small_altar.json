@@ -1,0 +1,13 @@
+{
+  "type": "runes:crafting",
+  "base": {
+    "tag": "runes:rune_crafting/base/stone"
+  },
+  "addition": {
+    "tag": "runes:rune_crafting/reagent/arcane_small"
+  },
+  "result": {
+    "count": 8,
+    "item": "runes:arcane_stone"
+  }
+}

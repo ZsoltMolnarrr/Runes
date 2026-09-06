@@ -1,22 +1,33 @@
 package net.runes.crafting;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.google.gson.JsonObject;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 
 import java.util.stream.Stream;
 
-public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
+/**
+ * The altar-only recipe: base + addition → result.
+ *
+ * <p>1.20.1 shape: {@code Recipe<Inventory>} (there is no {@code RecipeInput}), the recipe carries its
+ * own {@link #getId() id}, and the serializer is a hand-written JSON/packet pair instead of a
+ * {@code MapCodec} + {@code PacketCodec}.
+ */
+public class RuneCraftingRecipe implements Recipe<Inventory> {
     final Ingredient base;
     final Ingredient addition;
     final ItemStack result;
+    private final Identifier id;
 
-    public RuneCraftingRecipe(Ingredient base, Ingredient addition, ItemStack result) {
+    public RuneCraftingRecipe(Identifier id, Ingredient base, Ingredient addition, ItemStack result) {
+        this.id = id;
         this.base = base;
         this.addition = addition;
         this.result = result;
@@ -30,42 +41,63 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         return this.addition;
     }
 
-    /** The recipe's raw, unmodified result — {@link #craft} additionally copies components off the base stack. */
+    /** The recipe's raw, unmodified result — {@link #craft} additionally copies the base stack's NBT. */
     public ItemStack result() {
         return this.result;
     }
 
-    public boolean matches(RuneCraftingRecipeInput input, World world) {
-        return this.base.test(input.getStackInSlot(0)) && this.addition.test(input.getStackInSlot(1));
+    @Override
+    public boolean matches(Inventory inventory, World world) {
+        return this.base.test(inventory.getStack(0)) && this.addition.test(inventory.getStack(1));
     }
 
-    public ItemStack craft(RuneCraftingRecipeInput input, RegistryWrapper.WrapperLookup wrapperLookup) {
-        ItemStack itemStack = input.base().copyComponentsToNewStack(this.result.getItem(), this.result.getCount());
-        itemStack.applyUnvalidatedChanges(this.result.getComponentChanges());
+    @Override
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
+        // 1.20.1 has no data components: the 1.21 `copyComponentsToNewStack` + `applyUnvalidatedChanges`
+        // pair is the NBT copy the legacy branch did.
+        ItemStack itemStack = this.result.copy();
+        NbtCompound nbtCompound = inventory.getStack(0).getNbt();
+        if (nbtCompound != null) {
+            itemStack.setNbt(nbtCompound.copy());
+        }
         return itemStack;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return this.result;
     }
 
+    @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
+    public boolean testAddition(ItemStack stack) {
+        return this.addition.test(stack);
+    }
+
+    @Override
     public ItemStack createIcon() {
         return new ItemStack(RuneCraftingBlock.INSTANCE);
     }
 
-    public RecipeSerializer<?> getSerializer() {
-        return RuneCrafting.RECIPE_SERIALIZER;
+    @Override
+    public Identifier getId() {
+        return this.id;
     }
 
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
+    }
+
+    @Override
     public RecipeType<?> getType() {
         return TYPE;
     }
 
+    @Override
     public boolean isEmpty() {
         return Stream.of(this.base, this.addition).anyMatch((ingredient) -> {
             return ingredient.getMatchingStacks().length == 0;
@@ -80,40 +112,30 @@ public class RuneCraftingRecipe implements Recipe<RuneCraftingRecipeInput> {
         }
     };
 
+    public static final Serializer SERIALIZER = new Serializer();
+
     public static class Serializer implements RecipeSerializer<RuneCraftingRecipe> {
-        private static final MapCodec<RuneCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                instance -> instance.group(
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
-                                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-                        )
-                        .apply(instance, RuneCraftingRecipe::new)
-        );
-        public static final PacketCodec<RegistryByteBuf, RuneCraftingRecipe> PACKET_CODEC = PacketCodec.ofStatic(
-                RuneCraftingRecipe.Serializer::write, RuneCraftingRecipe.Serializer::read
-        );
-
         @Override
-        public MapCodec<RuneCraftingRecipe> codec() {
-            return CODEC;
+        public RuneCraftingRecipe read(Identifier identifier, JsonObject jsonObject) {
+            Ingredient ingredient = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "base"));
+            Ingredient ingredient2 = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "addition"));
+            ItemStack itemStack = ShapedRecipe.outputFromJson(JsonHelper.getObject(jsonObject, "result"));
+            return new RuneCraftingRecipe(identifier, ingredient, ingredient2, itemStack);
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, RuneCraftingRecipe> packetCodec() {
-            return PACKET_CODEC;
+        public RuneCraftingRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
+            Ingredient ingredient = Ingredient.fromPacket(packetByteBuf);
+            Ingredient ingredient2 = Ingredient.fromPacket(packetByteBuf);
+            ItemStack itemStack = packetByteBuf.readItemStack();
+            return new RuneCraftingRecipe(identifier, ingredient, ingredient2, itemStack);
         }
 
-        private static RuneCraftingRecipe read(RegistryByteBuf buf) {
-            Ingredient ingredient2 = Ingredient.PACKET_CODEC.decode(buf);
-            Ingredient ingredient3 = Ingredient.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
-            return new RuneCraftingRecipe(ingredient2, ingredient3, itemStack);
-        }
-
-        private static void write(RegistryByteBuf buf, RuneCraftingRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf, recipe.base);
-            Ingredient.PACKET_CODEC.encode(buf, recipe.addition);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
+        @Override
+        public void write(PacketByteBuf packetByteBuf, RuneCraftingRecipe recipe) {
+            recipe.base.write(packetByteBuf);
+            recipe.addition.write(packetByteBuf);
+            packetByteBuf.writeItemStack(recipe.result);
         }
     }
 }

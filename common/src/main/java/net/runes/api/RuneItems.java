@@ -19,7 +19,7 @@ public class RuneItems {
     static {
         var all = new ArrayList<Entry>();
         for(var type : RuneType.values()) {
-            var id = Identifier.of(RunesMod.ID, type.toString().toLowerCase(Locale.ENGLISH) + "_stone");
+            var id = new Identifier(RunesMod.ID, type.toString().toLowerCase(Locale.ENGLISH) + "_stone");
             var item = new Item(new Item.Settings());
             all.add(new Entry(id, type, item));
         }

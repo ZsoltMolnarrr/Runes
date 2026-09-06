@@ -1,0 +1,40 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = "https://github.com/ZsoltMolnarrr/Runes/issues"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "runes"
+version = "${version}"
+displayName = "Runes"
+authors = "Daedelus"
+credits = "Tutta (Artwork), Crispytwig (Artwork)"
+description = '''
+Craft runes to serve as ammo for spells.
+'''
+logoFile = "icon.png"
+
+[[dependencies.runes]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.runes]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+# Bundle API backs the rune pouches. It is JiJ'd, but kept optional so a user-managed copy of the
+# library also satisfies it — and so Runes still boots (without pouches) if it is ever removed.
+# Forge 47 aborts the boot on an optional dependency with an empty `versionRange`, so the range
+# is explicit.
+[[dependencies.runes]]
+modId = "bundleapi"
+mandatory = false
+versionRange = "[1.1,)"
+ordering = "AFTER"
+side = "BOTH"

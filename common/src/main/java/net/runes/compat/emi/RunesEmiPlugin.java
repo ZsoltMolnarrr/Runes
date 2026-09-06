@@ -34,8 +34,10 @@ public class RunesEmiPlugin implements EmiPlugin {
         registry.addCategory(CATEGORY);
         registry.addWorkstation(CATEGORY, ALTAR);
 
-        for (var entry : registry.getRecipeManager().listAllOfType(RuneCraftingRecipe.TYPE)) {
-            registry.addRecipe(new RuneCraftingEmiRecipe(entry.id(), entry.value()));
+        // 1.20.1: `listAllOfType` yields the recipes themselves (there is no `RecipeEntry` wrapper);
+        // each recipe carries its own id.
+        for (var recipe : registry.getRecipeManager().listAllOfType(RuneCraftingRecipe.TYPE)) {
+            registry.addRecipe(new RuneCraftingEmiRecipe(recipe.getId(), recipe));
         }
     }
 }

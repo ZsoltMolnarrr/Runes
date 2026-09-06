@@ -4,6 +4,9 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.screen.ScreenHandlerType;
+import net.runes.crafting.RuneCraftingScreenHandler;
 import net.runes.RunesMod;
 import net.runes.api.RuneItems;
 import net.runes.crafting.RuneCraftingBlock;
@@ -15,6 +18,11 @@ public final class FabricMod implements ModInitializer {
         // Run our common setup.
         RunesMod.registerSounds();
         RunesMod.registerRecipeType();
+        RunesMod.registerRecipeSerializer();
+        // The `ScreenHandlerType` constructor is vanilla-private on 1.20.1; Fabric API's
+        // `fabric-screen-handler-api-v1` access widener opens it for this module.
+        RuneCraftingScreenHandler.HANDLER_TYPE =
+                new ScreenHandlerType<>(RuneCraftingScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
         RunesMod.registerScreenHandler();
         RunesMod.registerBlocks();
         RunesMod.registerItems();
@@ -22,7 +30,7 @@ public final class FabricMod implements ModInitializer {
             RunePouches.register();
         }
 
-        // Creative-tab placement — Fabric API (loader-specific; NeoForge uses BuildCreativeModeTabContentsEvent).
+        // Creative-tab placement — Fabric API (loader-specific; Forge uses BuildCreativeModeTabContentsEvent).
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content ->
                 content.add(RuneCraftingBlock.ITEM));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {

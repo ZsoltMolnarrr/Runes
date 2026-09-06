@@ -9,24 +9,31 @@ import net.runes.crafting.*;
 public class RunesMod {
     public static final String ID = "runes";
 
+    // One method per target registry: Forge 47's `RegisterEvent` opens exactly one registry at a time,
+    // so anything registered in the wrong window hits a locked registry.
+
     public static void registerSounds() {
         Registry.register(Registries.SOUND_EVENT, RuneCrafting.ID, RuneCrafting.SOUND);
     }
 
     public static void registerScreenHandler() {
-        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(ID, RuneCraftingRecipe.NAME), RuneCraftingScreenHandler.HANDLER_TYPE);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(ID, RuneCraftingRecipe.NAME), RuneCraftingScreenHandler.HANDLER_TYPE);
     }
 
     public static void registerRecipeType() {
-        RuneCrafting.registerRecipe();
+        RuneCrafting.registerRecipeType();
+    }
+
+    public static void registerRecipeSerializer() {
+        RuneCrafting.registerRecipeSerializer();
     }
 
     public static void registerBlocks() {
-        Registry.register(Registries.BLOCK, Identifier.of(ID, RuneCraftingBlock.NAME), RuneCraftingBlock.INSTANCE);
+        Registry.register(Registries.BLOCK, new Identifier(ID, RuneCraftingBlock.NAME), RuneCraftingBlock.INSTANCE);
     }
 
     public static void registerItems() {
-        Registry.register(Registries.ITEM, Identifier.of(ID, RuneCraftingBlock.NAME), RuneCraftingBlock.ITEM);
+        Registry.register(Registries.ITEM, new Identifier(ID, RuneCraftingBlock.NAME), RuneCraftingBlock.ITEM);
         for(var entry: RuneItems.entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }

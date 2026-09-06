@@ -14,10 +14,11 @@ public final class FabricClientMod implements ClientModInitializer {
     public void onInitializeClient() {
         RunesClientMod.init();
 
-        // Screen registration — Fabric API (loader-specific; NeoForge uses RegisterMenuScreensEvent).
+        // Screen registration — `HandledScreens.register` is vanilla-private on 1.20.1; Fabric API's
+        // `fabric-screen-handler-api-v1` access widener opens it for this module (Forge patches it public).
         HandledScreens.register(RuneCraftingScreenHandler.HANDLER_TYPE, RuneCraftingScreen::new);
 
-        // Fabric-specific render layer registration
+        // Fabric-specific render layer registration (Forge reads `render_type` from the block model).
         BlockRenderLayerMap.INSTANCE.putBlock(RuneCraftingBlock.INSTANCE, RenderLayer.getCutout());
     }
 }

@@ -14,7 +14,7 @@ import net.runes.crafting.RuneCraftingScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class RuneCraftingScreen extends ForgingScreen<RuneCraftingScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(RunesMod.ID, "textures/gui/" + RuneCraftingBlock.NAME + ".png");
+    private static final Identifier TEXTURE = new Identifier(RunesMod.ID, "textures/gui/" + RuneCraftingBlock.NAME + ".png");
 
     public RuneCraftingScreen(RuneCraftingScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title, TEXTURE);
