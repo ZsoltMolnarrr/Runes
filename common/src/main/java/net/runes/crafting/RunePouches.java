@@ -55,11 +55,23 @@ public class RunePouches {
         return entry;
     }
 
-    public static void register() {
+    /// Builds every rune pouch into {@link #entries}. Creation only — nothing is registered here, so a
+    /// loader that registers items itself (Forge, through the `RegisterEvent` helper) calls this and then
+    /// iterates `entries`. Built once; repeated calls are a no-op.
+    ///
+    /// `Item`'s constructor takes an intrusive registry holder, so this must still be called from inside
+    /// the ITEM registration window.
+    public static void create() {
+        if (!entries.isEmpty()) {
+            return;
+        }
         entry("small_rune_pouch", 4, null);
         entry("medium_rune_pouch", 8, null);
         entry("large_rune_pouch", 12, Rarity.UNCOMMON);
+    }
 
+    public static void register() {
+        create();
         for(var entry: entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }

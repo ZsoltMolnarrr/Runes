@@ -9,8 +9,12 @@ import net.runes.crafting.*;
 public class RunesMod {
     public static final String ID = "runes";
 
-    // One method per target registry: Forge 47's `RegisterEvent` opens exactly one registry at a time,
-    // so anything registered in the wrong window hits a locked registry.
+    // These are the Fabric registration path. Forge cannot use them — a plain `Registry.register` throws
+    // "Can not register to a locked registry" on 47.0-47.3 — so `net.runes.forge.ForgeMod` deliberately
+    // duplicates these loops through the helper its `RegisterEvent` hands out. Keep the two in step.
+    //
+    // One method per target registry, mirroring the one-registry-per-`RegisterEvent`-window shape the
+    // Forge side has to obey (recipe TYPE and recipe SERIALIZER are two separate windows).
 
     public static void registerSounds() {
         Registry.register(Registries.SOUND_EVENT, RuneCrafting.ID, RuneCrafting.SOUND);
