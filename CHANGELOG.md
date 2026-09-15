@@ -1,5 +1,18 @@
 # 1.3.2+1.20.1
 
+> ### ⚠️ Read this before updating
+>
+> This release is a **major technical overhaul and is not backwards compatible.**
+>
+> - **Requires the matching Spell Engine release.** This version will not run on Spell Engine
+>   **0.9.x**, and mods built against 0.9.x will not work alongside it.
+> - **Update the whole set together.** Spell Engine and every RPG Series mod must be on
+>   matching versions. Mixing in an older add-on will break at startup or misbehave in play.
+> - **Spell books must be re-obtained.** Spell books from an older world no longer carry valid
+>   spell data. Re-craft them, or re-bind their spells at the Spell Binding Table.
+>
+> **Back up your world before updating.**
+
 - Ported to Minecraft 1.20.1 (Fabric + Forge 47)
 - Bundle API 1.1.0+1.20.1 is embedded in the jar (no separate download) until an upstream 1.20.1 release exists
 
