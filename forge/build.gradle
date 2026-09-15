@@ -36,6 +36,13 @@ configurations {
 }
 
 repositories {
+    // Bundle API for 1.20.1 is vendored from the ZsoltMolnarrr/bundle-api fork (branch `1.20.1-modern`)
+    // until upstream publishes a 1.20.1 build to Modrinth. See libs/maven/README.md for the exit path.
+    maven {
+        name = 'VendoredBundleApi'
+        url = uri("${rootProject.projectDir}/libs/maven")
+        content { includeGroup 'com.github.TheRedBrain' }
+    }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -56,7 +63,7 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
-    // Bundle API from mavenLocal (published by its 1.20.1-modern port).
+    // Bundle API, vendored under libs/maven (JiJ'd into the production jar).
     include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${rootProject.bundle_api_version}"))
 
     // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
@@ -119,7 +126,7 @@ publishMods {
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
-        requires("bundle-api")
+        embeds("bundle-api")      // JiJ'd; no separate download
     }
 
     modrinth {
@@ -127,7 +134,7 @@ publishMods {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        requires { slug = "bundle-api" }
+        embeds { slug = "bundle-api" }   // JiJ'd; no separate download
     }
 
     // Each platform publishes its own GitHub release under a distinct, platform-suffixed

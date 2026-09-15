@@ -7,6 +7,13 @@ architectury {
 def platform = "fabric";
 
 repositories {
+    // Bundle API for 1.20.1 is vendored from the ZsoltMolnarrr/bundle-api fork (branch `1.20.1-modern`)
+    // until upstream publishes a 1.20.1 build to Modrinth. See libs/maven/README.md for the exit path.
+    maven {
+        name = 'VendoredBundleApi'
+        url = uri("${rootProject.projectDir}/libs/maven")
+        content { includeGroup 'com.github.TheRedBrain' }
+    }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -29,7 +36,7 @@ dependencies {
     // No Fabric API in common: there is no Forgified Fabric API on the 1.20.1 line, so loader API
     // usage (item groups, render layers) stays in the platform modules.
 
-    // Bundle API from mavenLocal (published by its 1.20.1-modern port).
+    // Bundle API, vendored under libs/maven.
     modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${rootProject.bundle_api_version}")
 
     // EMI (optional integration) — the `xplat-intermediary` `api` artifact is the loader-neutral

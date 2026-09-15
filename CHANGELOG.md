@@ -1,6 +1,7 @@
 # 1.3.2.001
 
 - Ported to Minecraft 1.20.1 (Fabric + Forge 47)
+- Bundle API 1.1.0+1.20.1 is embedded in the jar (no separate download) until an upstream 1.20.1 release exists
 
 # 1.3.2
 
