@@ -58,9 +58,9 @@ dependencies {
 
     // Fabric API
     implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    // Bundle API (JiJ) — from Modrinth; gated via enable_bundle_api (see gradle.properties).
+    // Bundle API (JiJ) — our mavenLocal fork; gated via enable_bundle_api (see gradle.properties).
     if (rootProject.enable_bundle_api.toBoolean()) {
-        include(implementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
+        include(implementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
     }
 
     // JEI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin.
@@ -68,7 +68,10 @@ dependencies {
 
     // REI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin. NOT bundled and
     // NOT a declared dependency: the plugin lives in `common` and is compile-only there.
-    localRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    // Gated via enable_rei (see gradle.properties).
+    if (rootProject.enable_rei.toBoolean()) {
+        localRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    }
 
     // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
     // Dev runtime only, so `runClient` can verify the plugin. NOT bundled and NOT a declared

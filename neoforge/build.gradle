@@ -60,9 +60,9 @@ dependencies {
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    // Bundle API (JiJ) — from Modrinth; gated via enable_bundle_api (see gradle.properties).
+    // Bundle API (JiJ) — our mavenLocal fork; gated via enable_bundle_api (see gradle.properties).
     if (rootProject.enable_bundle_api.toBoolean()) {
-        include(implementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
+        include(implementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
     }
 
     // JEI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin. The plugin itself
@@ -71,8 +71,11 @@ dependencies {
 
     // REI (recipe viewer) — the plugin classes live in `common`; this module only adds the two
     // annotated stubs REI's NeoForge annotation scan looks for, so it needs the NeoForge API jar.
-    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.rei_version}"
-    localRuntime "me.shedaniel:RoughlyEnoughItems-neoforge:${project.rei_version}"
+    // Gated via enable_rei (see gradle.properties).
+    if (rootProject.enable_rei.toBoolean()) {
+        compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.rei_version}"
+        localRuntime "me.shedaniel:RoughlyEnoughItems-neoforge:${project.rei_version}"
+    }
 
     // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
     // Dev runtime only, so `runClient` can verify the plugin. NOT bundled and NOT a declared
@@ -80,6 +83,13 @@ dependencies {
     //if (rootProject.enable_emi.toBoolean()) {
     //    localRuntime "dev.emi:emi-neoforge:${project.emi_version}"
     //}
+}
+
+sourceSets.main.java {
+    // REI stubs stay in-tree, but out of the compile while REI is gated off (see gradle.properties).
+    if (!rootProject.enable_rei.toBoolean()) {
+        exclude 'net/runes/neoforge/compat/rei/**'
+    }
 }
 
 processResources {

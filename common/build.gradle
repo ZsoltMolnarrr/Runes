@@ -27,6 +27,7 @@ repositories {
 
 // Optional integrations — see gradle.properties for the gating rationale.
 def bundleApiEnabled = rootProject.enable_bundle_api.toBoolean()
+def reiEnabled = rootProject.enable_rei.toBoolean()
 //def emiEnabled = rootProject.enable_emi.toBoolean()
 
 dependencies {
@@ -36,7 +37,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
     if (bundleApiEnabled) {
-        implementation "maven.modrinth:bundle-api:${project.bundle_api_version}-fabric"
+        implementation "com.github.TheRedBrain:bundle-api-fabric:${project.bundle_api_version}"
     }
 
     // JEI (recipe viewer) — `common-api` is the loader-neutral API. This tree is Mojmap and so is the
@@ -46,8 +47,10 @@ dependencies {
 
     // REI (recipe viewer) — `RoughlyEnoughItems-api` is the loader-neutral API, Mojmap-named on 26.x,
     // so it needs no Loom remap either. Compile-only: these classes are only ever loaded by REI, so
-    // the mod runs fine without it.
-    compileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
+    // the mod runs fine without it. Gated via enable_rei (see gradle.properties).
+    if (reiEnabled) {
+        compileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
+    }
 
     // EMI (optional integration) — PARKED, no build past 1.21.1 (see gradle.properties).
     // The `xplat-intermediary` `api` artifact is the loader-neutral subset EMI publishes for
@@ -63,6 +66,9 @@ sourceSets.main.java {
     // Callers reach RunePouches only through the reflective `BundleApiCompat` bridge.
     if (!bundleApiEnabled) {
         exclude 'net/runes/crafting/RunePouches.java'
+    }
+    if (!reiEnabled) {
+        exclude 'net/runes/compat/rei/**'
     }
     // EMI is parked (see gradle.properties): the plugin sources stay in-tree but never compile.
     // Restore the gate below when re-enabling.
