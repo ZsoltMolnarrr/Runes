@@ -120,5 +120,3 @@ forge/run/
 !gradle-wrapper.jar
 
 *.blend1
-# Vendored Bundle API maven repository (see libs/maven/README.md) — jars must be committed
-!libs/maven/**/*.jar
