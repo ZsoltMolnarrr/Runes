@@ -28,6 +28,13 @@ configurations {
 }
 
 repositories {
+    // Bundle API for 1.20.1 is vendored from the ZsoltMolnarrr/bundle-api fork (branch `1.20.1-modern`)
+    // until upstream publishes a 1.20.1 build to Modrinth. See libs/maven/README.md for the exit path.
+    maven {
+        name = 'VendoredBundleApi'
+        url = uri("${rootProject.projectDir}/libs/maven")
+        content { includeGroup 'com.github.TheRedBrain' }
+    }
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -50,8 +57,8 @@ dependencies {
 
     // Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    // Bundle API from the Modrinth maven (JiJ'd into the production jar).
-    include(modImplementation("maven.modrinth:bundle-api:${rootProject.bundle_api_version}-${platform}"))
+    // Bundle API, vendored under libs/maven (JiJ'd into the production jar).
+    include(modImplementation("com.github.TheRedBrain:bundle-api-${platform}:${rootProject.bundle_api_version}"))
 
     // EMI (optional integration) — dev runtime only, so `runClient` can verify the plugin.
     // NOT bundled and NOT a declared dependency: the plugin lives in `common` and is
