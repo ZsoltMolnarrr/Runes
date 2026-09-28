@@ -60,9 +60,9 @@ dependencies {
     common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    // Bundle API (JiJ) — our mavenLocal fork; gated via enable_bundle_api (see gradle.properties).
+    // Bundle API (JiJ) — from Modrinth; gated via enable_bundle_api (see gradle.properties).
     if (rootProject.enable_bundle_api.toBoolean()) {
-        include(implementation("com.github.TheRedBrain:bundle-api-${platform}:${project.bundle_api_version}"))
+        include(implementation("maven.modrinth:bundle-api:${project.bundle_api_version}-${platform}"))
     }
 
     // JEI (recipe viewer) — dev runtime only, so `runClient` can verify the plugin. The plugin itself
