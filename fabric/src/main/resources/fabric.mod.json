@@ -28,6 +28,12 @@
     ],
     "jei_mod_plugin": [
       "net.runes.compat.jei.RunesJeiPlugin"
+    ],
+    "rei_common": [
+      "net.runes.compat.rei.RunesReiCommonPlugin"
+    ],
+    "rei_client": [
+      "net.runes.compat.rei.RunesReiClientPlugin"
     ]
   },
   "mixins": [
